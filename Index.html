@@ -9,11 +9,11 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #121212;
+            background-color: #f0f0f0;
         }
 
         header {
-            background-color: #121212;
+            background-color: #fff;
             width: 100%;
             padding: 1px 0;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -45,7 +45,7 @@
             justify-content: center;
             font-size: 0.5rem;
             margin-top: 10px;
-            color: #ccc;
+            color: #000;
         }
         #social-icons {
             display: flex;
@@ -70,10 +70,10 @@
         }
 
         #search-input {
-            width: 88%;
+            width: 90%;
             height: 10%;
             padding: 5px;
-            font-size: 10px;
+            font-size: 12px;
             border: 2px solid #ccc;
             border-radius: 8px;
         }
@@ -81,7 +81,7 @@
         #frames-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr); /* 3 columns by default */
-            gap: 3px;
+            gap: 4px;
             max-width: 1000px;
             padding: 7px;
             box-sizing: border-box;
@@ -89,7 +89,7 @@
 
         .frame {
             width: 100%; /* Full width of the grid column */
-            background-color: #121212;
+            background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             overflow: hidden;
@@ -98,7 +98,7 @@
 
         .frame img {
             width: 100%;
-            aspect-ratio: 16 / 24; /* Maintain consistent image proportions */
+            aspect-ratio: 16 / 23; /* Maintain consistent image proportions */
             object-fit: cover;
             cursor: pointer;
         }
@@ -110,7 +110,7 @@
         .frame .content h2 {
             font-size: 0.1px; /* Adjusted font size */
             margin: 0 0 8px;
-            color: #fff;
+            color: #333;
         }
 
         .frame .content p {
@@ -122,7 +122,7 @@
         .frame .content button {
             background-color: #ff0000;
             border: 1px solid #ccc;
-            padding: 5px 40px;
+            padding: 1px 40px;
             font-size: 8px; /* Adjusted font size */
             color: #fff;
             border-radius: 8px;
@@ -137,6 +137,37 @@
             #frames-container {
                 grid-template-columns: 1fr; /* Single column layout for smaller screens */
             }
+        }
+
+        /* Custom Message Box */
+        .message-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            padding: 10px;
+            z-index: 2000;
+            display: none;
+        }
+
+        .message-box p {
+            margin: 0 0 8px 0;
+            font-size: 9px;
+            color: #333;
+        }
+
+        .message-box button {
+            padding: 5px 20px;
+            background-color: #ff0000;
+            border: none;
+            color: white;
+            font-size: 10px;
+            border-radius: 6px;
+            cursor: pointer;
         }
 
         /* Nav Styles */
@@ -157,8 +188,8 @@
         }
 
         nav iframe {
-            width: 100%;
-            height: 100%;
+            width: 98%;
+            height: 95%;
             border: none;
             margin-bottom: 20px;
         }
@@ -168,7 +199,7 @@
             background-color: #ff9900;
             border: none;
             color: white;
-            font-size: 10px;
+            font-size: 16px;
             border-radius: 8px;
             cursor: pointer;
         }
@@ -185,11 +216,14 @@
         }
 
         #countdown {
+            padding: 5px 20px;
+            background-color: #ff0000;
             font-size: 20px;
+            border-radius: 8px;
             font-weight: bold;
         }
         .url-button {
-            padding: 1px 15px;
+            padding: 3px 20px;
             border-radius: 8px;
             border: none;
             background: linear-gradient(135deg, #ff6a00, #ee0979);
@@ -220,21 +254,7 @@
 </head>
 <body>
     <header>
-        <h1><a href="https://drive.google.com/file/d/15TmwkJd8aAoe8op04SNPn5Fd58g4B-5q/view?usp=drivesdk" target="_blank" class="url-button">Open App</a></h1>
-        <div id="social-icons">
-            <a href="https://youtube.com" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube">
-            </a>
-            <a href="https://facebook.com" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
-            </a>
-            <a href="https://telegram.org" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
-            </a>
-            <a href="https://instagram.com" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
-            </a>
-        </div>
+        <h1><a href="https://drive.google.com/file/d/15TmwkJd8aAoe8op04SNPn5Fd58g4B-5q/view?usp=drivesdk" target="_blank" class="url-button">Open App</a></h1>        
         <div id="search-bar">
             <input
                 type="text"
@@ -244,170 +264,211 @@
             />
         </div>
     </header>
-    <div class="description">YOU MUST WATCH ADS BEFORE YOU CAN WATCH ANY MOVIE HERE</div>
 
     <div id="frames-container"></div>
 
+    <div class="message-box" id="customMessage">
+        <p id="messageText"></p>
+        <button onclick="closeCustomMessage()">OK</button>
+    </div>
+
     <nav id="websiteNav">
-        <button class="close-btn" onclick="closeWebsiteNav()">✖</button>
         <iframe id="websiteFrame" src="" allowfullscreen></iframe>
         <div id="countdown">15</div>
     </nav>
 
     <nav id="videoNav">
-        <button class="close-btn" onclick="closeVideoNav()">Close</button>
+        <button class="close-btn" onclick="closeVideoNav()">✖</button>
         <iframe id="videoFrame" src="" allowfullscreen></iframe>
     </nav>
 
     <script>
-        const data = [
-            {
+    const data = [
+        {
                 imgUrl: "https://bit.ly/4gCtC1L",
-                websiteUrl: "https://example.com",
+                websiteUrl: "https://whomeenoaglauns.com/4/7597718",
                 videoUrl: "https://youtube.com/embed/ZG6yG8PTmfY",
                 title: "APOCALYPSE 2"
             },
             {
                 imgUrl: "https://bit.ly/3VRBV13",
-                websiteUrl: "https://example.com",
-                videoUrl: "https://youtube.com/embed/VIDEO_ID_2",
+                websiteUrl: "https://ispaces.netlify.app/",
+                videoUrl: "https://youtube.com/embed/3_i60BLtN_s",
                 title: "GUNS OF EDEN"
             },
             {
                 imgUrl: "https://bit.ly/4gDe4dm",
                 websiteUrl: "https://example.com",
-                videoUrl: "https://youtube.com/embed/VIDEO_ID_1",
+                videoUrl: "https://youtube.com/embed/dLWTkLftll0",
                 title: "JACK THE GIANT SLAYER"
             },
             {
                 imgUrl: "https://bit.ly/405kXOj",
-                websiteUrl: "https://t.anchat.link/z5ki8z34jk?url_id=0&aff_id=326211&offer_id=3664&bo=2779,2778,2777,2776,2775&po=6533&aff_sub5=SF_006OG000004lmDN",
-                videoUrl: "https://youtube.com/embed/VIDEO_ID_2",
+                websiteUrl: "https://example.com",
+                videoUrl: "https://youtube.com/embed/CumW3IY1mMg",
                 title: "GOD OF WAR"
             },
             {
-                imgUrl: "https://bit.ly/4gCtC1L",
+                imgUrl: "https://bit.ly/4fwBQqK",
                 websiteUrl: "https://example.com",
-                videoUrl: "https://youtube.com/embed/ZG6yG8PTmfY",
-                title: "APOCALYPSE 2"
+                videoUrl: "https://youtube.com/embed/BjkncLAZu80",
+                title: "VIKING HUNTRESS"
             },
             {
-                imgUrl: "https://bit.ly/3VRBV13",
+                imgUrl: "https://bit.ly/3BxGSW6",
                 websiteUrl: "https://example.com",
-                videoUrl: "https://youtube.com/embed/VIDEO_ID_2",
-                title: "GUNS OF EDEN"
+                videoUrl: "https://youtube.com/embed/siFLpeqOWDQ",
+                title: "KNIGHT OF THE DEAD"
             },
             {
-                imgUrl: "https://bit.ly/4gDe4dm",
+                imgUrl: "https://bit.ly/3ZLSaxS",
                 websiteUrl: "https://example.com",
-                videoUrl: "https://youtube.com/embed/VIDEO_ID_1",
-                title: "JACK THE GIANT SLAYER"
+                videoUrl: "https://youtube.com/embed/UPjyNg1mKAM",
+                title: "JURASSIC TRIANGLE"
             },
             {
-                imgUrl: "https://bit.ly/405kXOj",
-                websiteUrl: "https://t.anchat.link/z5ki8z34jk?url_id=0&aff_id=326211&offer_id=3664&bo=2779,2778,2777,2776,2775&po=6533&aff_sub5=SF_006OG000004lmDN",
-                videoUrl: "https://youtube.com/embed/VIDEO_ID_2",
-                title: "GOD OF WAR"
+                imgUrl: "https://bit.ly/3VSO1am",
+                websiteUrl: "https://example.com",
+                videoUrl: "https://youtube.com/embed/iTNyJse9fdk",
+                title: "ALIEN INVASION"
             }
         ];
 
-        let canWatchVideo = {}; // To track if video access is allowed
+    const createFrames = (filteredData = data) => {
+        const container = document.getElementById('frames-container');
+        container.innerHTML = '';
 
-        const createFrames = (filteredData = data) => {
-            const container = document.getElementById('frames-container');
-            container.innerHTML = '';
+        filteredData.forEach((item, index) => {
+            const isUnlocked = checkUnlockStatus(index);
 
-            filteredData.forEach((item, index) => {
-                canWatchVideo[index] = false; // Initialize video access as false
+            const frame = document.createElement('div');
+            frame.className = 'frame';
 
-                const frame = document.createElement('div');
-                frame.className = 'frame';
+            const img = document.createElement('img');
+            img.src = item.imgUrl;
+            img.alt = item.title;
+            img.onclick = () => {
+                if (isUnlocked) {
+                    openVideoNav(item.videoUrl);
+                } else {
+                    showCustomMessage("Please watch ad to unlock the video. click the unlock 🔓 button below.");
+                }
+            };
 
-                const img = document.createElement('img');
-                img.src = item.imgUrl;
-                img.alt = "Product image";
-                img.onclick = () => {
-                    if (canWatchVideo[index]) {
-                        openVideoNav(item.videoUrl);
-                    } else {
-                        alert("Unlock 🔓 this movie by watching ads 🙏 Please click the ad button below this movie. and wait for the 15 second countdown.🎉🎉");
-                    }
-                };
+            const content = document.createElement('div');
+            content.className = 'content';
 
-                const content = document.createElement('div');
-                content.className = 'content';
+            const title = document.createElement('h2');
+            title.textContent = item.title;
 
-                const title = document.createElement('h2');
-                title.textContent = item.title;
+            const button = document.createElement('button');
+            button.textContent = isUnlocked ? "Successful" : "Unlock🔒";
+            button.disabled = isUnlocked;
+            button.onclick = () => openWebsiteNav(item.websiteUrl, index);
 
-                const button = document.createElement('button');
-                button.textContent = "Ads";
-                button.onclick = () => openWebsiteNav(item.websiteUrl, index);
+            content.appendChild(title);
+            content.appendChild(button);
+            frame.appendChild(img);
+            frame.appendChild(content);
+            container.appendChild(frame);
+        });
+    };
 
-                content.appendChild(title);
-                content.appendChild(button);
-                frame.appendChild(img);
-                frame.appendChild(content);
-                container.appendChild(frame);
-            });
-        };
+    const checkUnlockStatus = (index) => {
+        const unlockData = JSON.parse(localStorage.getItem('unlockedVideos')) || {};
+        const videoUnlockTime = unlockData[index];
 
-        const openWebsiteNav = (url, index) => {
-            const nav = document.getElementById('websiteNav');
-            const iframe = document.getElementById('websiteFrame');
-            const countdown = document.getElementById('countdown');
+        if (videoUnlockTime) {
+            const currentTime = Date.now();
+            const oneHourInMs = 60 * 60 * 1000;
 
-            iframe.src = url;
-            nav.style.display = 'flex';
+            if (currentTime - videoUnlockTime < oneHourInMs) {
+                return true;
+            } else {
+                delete unlockData[index];
+                localStorage.setItem('unlockedVideos', JSON.stringify(unlockData));
+                return false;
+            }
+        }
 
-            let timeLeft = 15;
+        return false;
+    };
+
+    const unlockVideo = (index) => {
+        const unlockData = JSON.parse(localStorage.getItem('unlockedVideos')) || {};
+        unlockData[index] = Date.now();
+        localStorage.setItem('unlockedVideos', JSON.stringify(unlockData));
+        createFrames();
+    };
+
+    const showCustomMessage = (message) => {
+        const messageBox = document.getElementById('customMessage');
+        const messageText = document.getElementById('messageText');
+
+        messageText.textContent = message;
+        messageBox.style.display = 'block';
+    };
+
+    const closeCustomMessage = () => {
+        document.getElementById('customMessage').style.display = 'none';
+    };
+
+    const openWebsiteNav = (url, index) => {
+        const nav = document.getElementById('websiteNav');
+        const iframe = document.getElementById('websiteFrame');
+        const countdown = document.getElementById('countdown');
+
+        iframe.src = url;
+        nav.style.display = 'flex';
+
+        let timeLeft = 15;
+        countdown.textContent = timeLeft;
+
+        const timer = setInterval(() => {
+            timeLeft--;
             countdown.textContent = timeLeft;
 
-            const timer = setInterval(() => {
-                timeLeft--;
-                countdown.textContent = timeLeft;
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                closeWebsiteNav();
+                unlockVideo(index);
+            }
+        }, 1000);
+    };
 
-                if (timeLeft <= 0) {
-                    clearInterval(timer);
-                    closeWebsiteNav();
-                    canWatchVideo[index] = true; // Allow watching video
-                }
-            }, 1000);
-        };
+    const closeWebsiteNav = () => {
+        const nav = document.getElementById('websiteNav');
+        const iframe = document.getElementById('websiteFrame');
 
-        const closeWebsiteNav = () => {
-            const nav = document.getElementById('websiteNav');
-            const iframe = document.getElementById('websiteFrame');
+        iframe.src = "";
+        nav.style.display = 'none';
+    };
 
-            iframe.src = ""; // Clear iframe source
-            nav.style.display = 'none';
-        };
+    const openVideoNav = (videoUrl) => {
+        const nav = document.getElementById('videoNav');
+        const iframe = document.getElementById('videoFrame');
 
-        const openVideoNav = (videoUrl) => {
-            const nav = document.getElementById('videoNav');
-            const iframe = document.getElementById('videoFrame');
+        iframe.src = videoUrl;
+        nav.style.display = 'flex';
+    };
 
-            iframe.src = videoUrl;
-            nav.style.display = 'flex';
-        };
+    const closeVideoNav = () => {
+        const nav = document.getElementById('videoNav');
+        const iframe = document.getElementById('videoFrame');
 
-        const closeVideoNav = () => {
-            const nav = document.getElementById('videoNav');
-            const iframe = document.getElementById('videoFrame');
+        iframe.src = "";
+        nav.style.display = 'none';
+    };
 
-            iframe.src = ""; // Clear iframe source
-            nav.style.display = 'none';
-        };
+    const filterFrames = () => {
+        const searchValue = document.getElementById('search-input').value.toLowerCase();
+        const filteredData = data.filter(item =>
+            item.title.toLowerCase().includes(searchValue)
+        );
+        createFrames(filteredData);
+    };
 
-        const filterFrames = () => {
-            const searchValue = document.getElementById('search-input').value.toLowerCase();
-            const filteredData = data.filter(item =>
-                item.title.toLowerCase().includes(searchValue)
-            );
-            createFrames(filteredData);
-        };
-
-        createFrames();
-    </script>
+    createFrames();
+</script>
 </body>
 </html>
