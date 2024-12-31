@@ -275,7 +275,7 @@
 
     <nav id="websiteNav">
         <iframe id="websiteFrame" src="" allowfullscreen></iframe>
-        <div id="countdown">20</div>
+        <div id="countdown">2</div>
     </nav>
 
     <nav id="videoNav">
@@ -364,7 +364,7 @@
                 if (isUnlocked) {
                     openVideoNav(item.videoUrl);
                 } else {
-                    showCustomMessage("Please watch ad to unlock the video. click the unlock 🔓 button below.");
+                    showCustomMessage("Please watch the ad to unlock the video.");
                 }
             };
 
@@ -375,9 +375,9 @@
             title.textContent = item.title;
 
             const button = document.createElement('button');
-            button.textContent = isUnlocked ? "Successful" : "Unlock🔒";
+            button.textContent = isUnlocked ? "Unlocked (1 hour)" : "Watch Ad";
             button.disabled = isUnlocked;
-            button.onclick = () => openWebsiteNav(item.websiteUrl, index);
+            button.onclick = () => openWebsite(item.websiteUrl, index);
 
             content.appendChild(title);
             content.appendChild(button);
@@ -426,51 +426,37 @@
         document.getElementById('customMessage').style.display = 'none';
     };
 
-    const openWebsiteNav = (url, index) => {
-        const nav = document.getElementById('websiteNav');
-        const iframe = document.getElementById('websiteFrame');
-        const countdown = document.getElementById('countdown');
-
-        iframe.src = url;
-        nav.style.display = 'flex';
-
-        let timeLeft = 20;
-        countdown.textContent = timeLeft;
+    const openWebsite = (url, index) => {
+        showCustomMessage("You must stay for 15 seconds to unlock the video.");
+        let timeLeft = 2;
+        const countdown = document.getElementById('messageText');
+        countdown.textContent = `Stay on the page for ${timeLeft} seconds`;
 
         const timer = setInterval(() => {
             timeLeft--;
-            countdown.textContent = timeLeft;
+            countdown.textContent = `Stay on the page for ${timeLeft} seconds`;
 
             if (timeLeft <= 0) {
                 clearInterval(timer);
-                closeWebsiteNav();
                 unlockVideo(index);
+                closeCustomMessage();
             }
         }, 1000);
-    };
 
-    const closeWebsiteNav = () => {
-        const nav = document.getElementById('websiteNav');
-        const iframe = document.getElementById('websiteFrame');
-
-        iframe.src = "";
-        nav.style.display = 'none';
+        // Open website in a new tab (optional)
+        window.open(url, '_blank');
     };
 
     const openVideoNav = (videoUrl) => {
-        const nav = document.getElementById('videoNav');
         const iframe = document.getElementById('videoFrame');
-
         iframe.src = videoUrl;
-        nav.style.display = 'flex';
+        document.getElementById('videoNav').style.display = 'flex';
     };
 
     const closeVideoNav = () => {
-        const nav = document.getElementById('videoNav');
         const iframe = document.getElementById('videoFrame');
-
         iframe.src = "";
-        nav.style.display = 'none';
+        document.getElementById('videoNav').style.display = 'none';
     };
 
     const filterFrames = () => {
