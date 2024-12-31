@@ -380,7 +380,7 @@
             title.textContent = item.title;
 
             const button = document.createElement('button');
-            button.textContent = isUnlocked ? "Video Opened" : "Watch Ad 🔒";
+            button.textContent = isUnlocked ? "Video ✅" : "Watch Ad 🔒";
             button.disabled = isUnlocked;
             button.onclick = () => openWebsite(item.websiteUrl, index);
 
