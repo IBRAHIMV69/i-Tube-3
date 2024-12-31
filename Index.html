@@ -122,15 +122,15 @@
         .frame .content button {
         background-color: #FF0000;
         color: #fff;
-        border: none;
+        border: 1px solid #ccc;
         padding: 8px 20px;
-        border-radius: 4px;
+        border-radius: 8px;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
         width: 100%;
-        font-size: 6px;
+        font-size: 10px;
         text-align: center;
     }
 
@@ -380,7 +380,7 @@
             title.textContent = item.title;
 
             const button = document.createElement('button');
-            button.textContent = isUnlocked ? "Video Unlocked" : "Watch Ad 🔒";
+            button.textContent = isUnlocked ? "Video Unlocked ✅" : "Watch Ad 🔒";
             button.disabled = isUnlocked;
             button.onclick = () => openWebsite(item.websiteUrl, index);
 
