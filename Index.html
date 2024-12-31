@@ -3,289 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Store</title>
+    <title>Lite Browser Ad Unlock</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
-        }
-
-        header {
-            background-color: #fff;
-            width: 100%;
-            padding: 8px 0;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        header h1 {
-            font-size: 10px;
-            color: #333;
-            margin: 2;
-        }
-
-        .search-container {
-            margin: 1px;
-        }
-
-        .search-container input {
-            padding: 10px;
-            font-size: 8px;
-            width: 318px;
-            border-radius: 12px;
-            border: 2px solid #ccc;
-        }
-        .description {
-        display: flex;
-            justify-content: center;
-            font-size: 0.5rem;
-            margin-top: 10px;
-            color: #000;
-        }
-        #social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        #social-icons a {
-            text-decoration: none;
-            color: #333;
-        }
-
-        #social-icons img {
-            width: 15px;
-            height: 15px;
-        }
-
-        #search-bar {
-            display: flex;
-            justify-content: center;
-            margin: 1px;
-        }
-
-        #search-input {
-            width: 90%;
-            height: 10%;
-            padding: 5px;
-            font-size: 12px;
-            border: 2px solid #ccc;
-            border-radius: 8px;
+            background-color: #f4f4f4;
         }
 
         #frames-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 columns by default */
-            gap: 4px;
-            max-width: 1000px;
-            padding: 7px;
-            box-sizing: border-box;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            padding: 20px;
         }
 
         .frame {
-            width: 100%; /* Full width of the grid column */
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 200px;
             text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px;
         }
 
         .frame img {
             width: 100%;
-            aspect-ratio: 16 / 23; /* Maintain consistent image proportions */
-            object-fit: cover;
+            height: auto;
+            cursor: pointer;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .content {
+            padding: 10px;
+        }
+
+        .content h2 {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .content button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
             cursor: pointer;
         }
 
-        .frame .content {
-            padding: 2px;
+        .content button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
         }
 
-        .frame .content h2 {
-            font-size: 5px; /* Adjusted font size */
-            margin: 0 0 8px;
-            color: #333;
-        }
-
-        .frame .content p {
-            font-size: 0.5px;
-            margin: 5px 0;
-            color: #555;
-        }
-
-        .frame .content button {
-            background-color: #FF0000;
-            border: 1px solid #ccc;
-            padding: 1px 40px;
-            font-size: 10px; /* Adjusted font size */
-            color: #fff;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .frame .content button:hover {
-            background-color: #FF0000;
-        }
-
-        @media (max-width: 200px) {
-            #frames-container {
-                grid-template-columns: 1fr; /* Single column layout for smaller screens */
-            }
-        }
-
-        /* Custom Message Box */
-        .message-box {
+        #customMessage {
+            display: none;
             position: fixed;
-            border: 1px solid #ccc;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            background: white;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             text-align: center;
-            padding: 10px;
-            z-index: 2000;
-            display: none;
+            z-index: 1000;
         }
 
-        .message-box p {
-            margin: 0 0 8px 0;
-            font-size: 9px;
-            color: #333;
-        }
-
-        .message-box button {
-            padding: 5px 20px;
-            background-color: #FF0000;
-            border: 1px solid #ccc;
-            color: #fff;
-            font-size: 10px;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        /* Nav Styles */
-        nav {
+        #videoNav {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
             justify-content: center;
             align-items: center;
-            flex-direction: column;
-            color: white;
-            text-align: center;
+            z-index: 1000;
         }
 
-        nav iframe {
-            width: 100%;
-            height: 100%;
+        #videoFrame {
+            width: 90%;
+            height: 60%;
             border: none;
-            margin-bottom: 20px;
         }
-
-        nav button {
-            padding: 5px 10px;
-            background-color: #ff9900;
-            border: none;
-            color: white;
-            font-size: 16px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        nav button:hover {
-            background-color: #e68a00;
-        }
-
-        nav .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background-color: red;
-        }
-
-        #countdown {
-            padding: 5px 20px;
-            background-color: #ff0000;
-            font-size: 20px;
-            border-radius: 8px;
-            font-weight: bold;
-        }
-        .url-button {
-            padding: 3px 20px;
-            border-radius: 8px;
-            border: none;
-            background: linear-gradient(135deg, #ff6a00, #ee0979);
-            color: #fff;
-            cursor: pointer;
-            margin: 8px;
-            text-decoration: none;
-            text-align: center;
-        }
-        .url-button:hover {
-            background: linear-gradient(135deg, #ff6a00, #ee0979);
-            
-            }
-        .link-button {
-            padding: 0.3px 20px;
-            border-radius: 8px;
-            border: none;
-            background: linear-gradient(135deg, #fff, #fff);
-            color: #000;
-            cursor: pointer;
-            margin: 8px;
-            text-decoration: none;
-            text-align: center;
-        }
-        .link-button:hover {
-            background: linear-gradient(135deg, #ff6a00, #ee0979);
     </style>
 </head>
 <body>
-    <header>
-        <h1><a href="https://drive.google.com/file/d/1Ktc8MKnoc65A2DeVXUpiwV2UixlKbvRW/view?usp=drivesdk" target="_blank" class="url-button">Open App</a></h1>        
-        <div id="search-bar">
-            <input
-                type="text"
-                id="search-input"
-                placeholder="🔍  Search..."
-                oninput="filterFrames()"
-            />
-        </div>
-    </header>
-
     <div id="frames-container"></div>
 
-    <div class="message-box" id="customMessage">
+    <div id="customMessage">
         <p id="messageText"></p>
-        <button onclick="closeCustomMessage()">OK</button>
+        <button onclick="closeCustomMessage()">Close</button>
     </div>
 
-    <nav id="websiteNav">
-        <iframe id="websiteFrame" src="" allowfullscreen></iframe>
-        <div id="countdown">20</div>
-    </nav>
-
-    <nav id="videoNav">
-        <button class="close-btn" onclick="closeVideoNav()">✖</button>
-        <iframe id="videoFrame" src="" allowfullscreen></iframe>
-    </nav>
+    <div id="videoNav">
+        <iframe id="videoFrame"></iframe>
+        <button onclick="closeVideoNav()" style="margin-top: 10px; background: white;">Close</button>
+    </div>
 
     <script>
-    const data = [
-        {
+        const data = [
+            {
                 imgUrl: "https://bit.ly/4gCtC1L",
                 websiteUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
                 videoUrl: "https://youtube.com/embed/CetjkiaH2x0",
@@ -353,128 +176,118 @@
             }
         ];
 
-    const createFrames = (filteredData = data) => {
-        const container = document.getElementById('frames-container');
-        container.innerHTML = '';
+        const createFrames = () => {
+            const container = document.getElementById('frames-container');
+            container.innerHTML = '';
 
-        filteredData.forEach((item, index) => {
-            const isUnlocked = checkUnlockStatus(index);
+            data.forEach((item, index) => {
+                const isUnlocked = checkUnlockStatus(index);
 
-            const frame = document.createElement('div');
-            frame.className = 'frame';
+                const frame = document.createElement('div');
+                frame.className = 'frame';
 
-            const img = document.createElement('img');
-            img.src = item.imgUrl;
-            img.alt = item.title;
-            img.onclick = () => {
-                if (isUnlocked) {
-                    openVideoNav(item.videoUrl);
+                const img = document.createElement('img');
+                img.src = item.imgUrl;
+                img.alt = item.title;
+                img.onclick = () => {
+                    if (isUnlocked) {
+                        openVideoNav(item.videoUrl);
+                    } else {
+                        showCustomMessage("Watch the ad to unlock the video.");
+                    }
+                };
+
+                const content = document.createElement('div');
+                content.className = 'content';
+
+                const title = document.createElement('h2');
+                title.textContent = item.title;
+
+                const button = document.createElement('button');
+                button.textContent = isUnlocked ? "Unlocked (1 hour)" : "Watch Ad";
+                button.disabled = isUnlocked;
+                button.onclick = () => openWebsite(item.websiteUrl, index);
+
+                content.appendChild(title);
+                content.appendChild(button);
+                frame.appendChild(img);
+                frame.appendChild(content);
+                container.appendChild(frame);
+            });
+        };
+
+        const checkUnlockStatus = (index) => {
+            const unlockData = JSON.parse(localStorage.getItem('unlockedVideos')) || {};
+            const videoUnlockTime = unlockData[index];
+
+            if (videoUnlockTime) {
+                const currentTime = Date.now();
+                const oneHourInMs = 60 * 60 * 1000;
+
+                if (currentTime - videoUnlockTime < oneHourInMs) {
+                    return true;
                 } else {
-                    showCustomMessage("Please watch the ad to unlock the video.");
+                    delete unlockData[index];
+                    localStorage.setItem('unlockedVideos', JSON.stringify(unlockData));
+                    return false;
                 }
-            };
-
-            const content = document.createElement('div');
-            content.className = 'content';
-
-            const title = document.createElement('h2');
-            title.textContent = item.title;
-
-            const button = document.createElement('button');
-            button.textContent = isUnlocked ? "Unlocked ✅" : "Unlock 🔒";
-            button.disabled = isUnlocked;
-            button.onclick = () => openWebsite(item.websiteUrl, index);
-
-            content.appendChild(title);
-            content.appendChild(button);
-            frame.appendChild(img);
-            frame.appendChild(content);
-            container.appendChild(frame);
-        });
-    };
-
-    const checkUnlockStatus = (index) => {
-        const unlockData = JSON.parse(localStorage.getItem('unlockedVideos')) || {};
-        const videoUnlockTime = unlockData[index];
-
-        if (videoUnlockTime) {
-            const currentTime = Date.now();
-            const oneHourInMs = 60 * 60 * 1000;
-
-            if (currentTime - videoUnlockTime < oneHourInMs) {
-                return true;
-            } else {
-                delete unlockData[index];
-                localStorage.setItem('unlockedVideos', JSON.stringify(unlockData));
-                return false;
             }
-        }
 
-        return false;
-    };
+            return false;
+        };
 
-    const unlockVideo = (index) => {
-        const unlockData = JSON.parse(localStorage.getItem('unlockedVideos')) || {};
-        unlockData[index] = Date.now();
-        localStorage.setItem('unlockedVideos', JSON.stringify(unlockData));
-        createFrames();
-    };
+        const unlockVideo = (index) => {
+            const unlockData = JSON.parse(localStorage.getItem('unlockedVideos')) || {};
+            unlockData[index] = Date.now();
+            localStorage.setItem('unlockedVideos', JSON.stringify(unlockData));
+            createFrames();
+        };
 
-    const showCustomMessage = (message) => {
-        const messageBox = document.getElementById('customMessage');
-        const messageText = document.getElementById('messageText');
+        const showCustomMessage = (message) => {
+            const messageBox = document.getElementById('customMessage');
+            const messageText = document.getElementById('messageText');
 
-        messageText.textContent = message;
-        messageBox.style.display = 'block';
-    };
+            messageText.textContent = message;
+            messageBox.style.display = 'block';
+        };
 
-    const closeCustomMessage = () => {
-        document.getElementById('customMessage').style.display = 'none';
-    };
+        const closeCustomMessage = () => {
+            document.getElementById('customMessage').style.display = 'none';
+        };
 
-    const openWebsite = (url, index) => {
-        showCustomMessage("You must stay for 15 seconds to unlock the video.");
-        let timeLeft = 15;
-        const countdown = document.getElementById('messageText');
-        countdown.textContent = `Stay on the page for ${timeLeft} seconds`;
-
-        const timer = setInterval(() => {
-            timeLeft--;
+        const openWebsite = (url, index) => {
+            showCustomMessage("Please wait for 15 seconds...");
+            let timeLeft = 15;
+            const countdown = document.getElementById('messageText');
             countdown.textContent = `Stay on the page for ${timeLeft} seconds`;
 
-            if (timeLeft <= 0) {
-                clearInterval(timer);
-                unlockVideo(index);
-                closeCustomMessage();
-            }
-        }, 1000);
+            const timer = setInterval(() => {
+                timeLeft--;
+                countdown.textContent = `Stay on the page for ${timeLeft} seconds`;
 
-        // Open website in a new tab (optional)
-        window.open(url, '_blank');
-    };
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    unlockVideo(index);
+                    closeCustomMessage();
+                }
+            }, 1000);
 
-    const openVideoNav = (videoUrl) => {
-        const iframe = document.getElementById('videoFrame');
-        iframe.src = videoUrl;
-        document.getElementById('videoNav').style.display = 'flex';
-    };
+            window.open(url, '_blank');
+        };
 
-    const closeVideoNav = () => {
-        const iframe = document.getElementById('videoFrame');
-        iframe.src = "";
-        document.getElementById('videoNav').style.display = 'none';
-    };
+        const openVideoNav = (videoUrl) => {
+            const iframe = document.getElementById('videoFrame');
+            iframe.src = videoUrl;
+            document.getElementById('videoNav').style.display = 'flex';
+        };
 
-    const filterFrames = () => {
-        const searchValue = document.getElementById('search-input').value.toLowerCase();
-        const filteredData = data.filter(item =>
-            item.title.toLowerCase().includes(searchValue)
-        );
-        createFrames(filteredData);
-    };
+        const closeVideoNav = () => {
+            const iframe = document.getElementById('videoFrame');
+            iframe.src = "";
+            document.getElementById('videoNav').style.display = 'none';
+        };
 
-    createFrames();
-</script>
-<script type='text/javascript' src='//pl25431103.profitablecpmrate.com/b8/d6/d8/b8d6d8b390bce762a2078b7957a71c0e.js'></script>
+        createFrames();
+    </script>
 </body>
 </html>
