@@ -108,7 +108,7 @@
         }
 
         .frame .content h2 {
-            font-size: 7px; /* Adjusted font size */
+            font-size: 5px; /* Adjusted font size */
             margin: 0 0 8px;
             color: #333;
         }
@@ -120,19 +120,14 @@
         }
 
         .frame .content button {
-        background-color: #FF0000;
-        color: #fff;
-        border: 1px solid #ccc;
-        padding: 7px 20px;
-        border-radius: 8px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        font-size: 9px;
-        text-align: center;
-    }
+            background-color: #FF0000;
+            border: 1px solid #ccc;
+            padding: 1px 40px;
+            font-size: 10px; /* Adjusted font size */
+            color: #fff;
+            border-radius: 8px;
+            cursor: pointer;
+        }
 
         .frame .content button:hover {
             background-color: #FF0000;
@@ -280,7 +275,7 @@
 
     <nav id="websiteNav">
         <iframe id="websiteFrame" src="" allowfullscreen></iframe>
-        <div id="countdown">15</div>
+        <div id="countdown">20</div>
     </nav>
 
     <nav id="videoNav">
@@ -386,7 +381,7 @@
             title.textContent = item.title;
 
             const button = document.createElement('button');
-            button.textContent = isUnlocked ? "Unlocked ✅" : "Watch Ad 🔒";
+            button.textContent = isUnlocked ? "Unlocked ✅" : "Unlock 🔒";
             button.disabled = isUnlocked;
             button.onclick = () => openWebsite(item.websiteUrl, index);
 
