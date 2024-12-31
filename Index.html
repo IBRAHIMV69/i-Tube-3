@@ -120,14 +120,19 @@
         }
 
         .frame .content button {
-            background-color: #FF0000;
-            border: 1px solid #ccc;
-            padding: 1px 40px;
-            font-size: 8px; /* Adjusted font size */
-            color: #fff;
-            border-radius: 8px;
-            cursor: pointer;
-        }
+        background-color: #FF0000;
+        color: #fff;
+        border: none;
+        padding: 6px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        font-size: 1px;
+        text-align: center;
+    }
 
         .frame .content button:hover {
             background-color: #FF0000;
@@ -275,7 +280,7 @@
 
     <nav id="websiteNav">
         <iframe id="websiteFrame" src="" allowfullscreen></iframe>
-        <div id="countdown">2</div>
+        <div id="countdown">5</div>
     </nav>
 
     <nav id="videoNav">
@@ -375,7 +380,7 @@
             title.textContent = item.title;
 
             const button = document.createElement('button');
-            button.textContent = isUnlocked ? "Unlocked (1 hour)" : "Watch Ad";
+            button.textContent = isUnlocked ? "Done ✅ Video Unlocked" : "Watch Ad 🔓";
             button.disabled = isUnlocked;
             button.onclick = () => openWebsite(item.websiteUrl, index);
 
@@ -428,7 +433,7 @@
 
     const openWebsite = (url, index) => {
         showCustomMessage("You must stay for 15 seconds to unlock the video.");
-        let timeLeft = 2;
+        let timeLeft = 5;
         const countdown = document.getElementById('messageText');
         countdown.textContent = `Stay on the page for ${timeLeft} seconds`;
 
