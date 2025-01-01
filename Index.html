@@ -3,291 +3,256 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lite Browser Ad Unlock</title>
+    <title>Video Unlock System</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #f9f9f9;
         }
-
-        #frames-container {
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background-color: #fff;
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff0000;
+        }
+        #search-bar {
+            flex: 1;
+            margin: 0 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 16px;
+        }
+        .icons {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .tags {
+            display: flex;
             gap: 10px;
-            justify-content: center;
+            margin-top: 10px;
+            overflow-x: auto;
+            padding: 10px 0;
+            width: 100%;
+        }
+        .tags .tag {
+            padding: 5px 10px;
+            background-color: #f1f1f1;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+        }
+        #frames-container {
+            margin-top: 120px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
             padding: 20px;
         }
-
         .frame {
-            background: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             border: 1px solid #ddd;
-            border-radius: 5px;
-            width: 200px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
             padding: 10px;
+            background-color: white;
         }
-
         .frame img {
-            width: 100%;
-            height: auto;
-            cursor: pointer;
-            border-bottom: 1px solid #ddd;
+            max-width: 100%;
+            border-radius: 8px;
         }
-
-        .content {
-            padding: 10px;
+        .frame .content {
+            text-align: center;
         }
-
         .content h2 {
-            font-size: 16px;
             margin: 10px 0;
         }
-
-        .content button {
-            background-color: #007BFF;
-            color: white;
+        .content .watch-ad-btn {
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
             border: none;
-            padding: 10px 15px;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 14px;
         }
-
-        .content button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
+        .content .watch-ad-btn:hover {
+            background-color: #0056b3;
         }
-
-        #customMessage {
+        #video-nav {
             display: none;
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: white;
+            background-color: white;
             padding: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            z-index: 1000;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
         }
-
-        #videoNav {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        #videoFrame {
-            width: 90%;
-            height: 60%;
+        #video-nav iframe {
+            width: 560px;
+            height: 315px;
             border: none;
+        }
+        #close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div id="frames-container"></div>
 
-    <div id="customMessage">
-        <p id="messageText"></p>
-        <button onclick="closeCustomMessage()">Close</button>
+<header>
+    <div class="header-top">
+        <div class="logo">MyTube</div>
+        <input type="text" id="search-bar" placeholder="Search for a video by title..." oninput="handleSearch()" />
     </div>
-
-    <div id="videoNav">
-        <iframe id="videoFrame"></iframe>
-        <button onclick="closeVideoNav()" style="margin-top: 10px; background: white;">Close</button>
+    <div class="tags">
+        <div class="tag" onclick="filterByTag('America')">America</div>
+        <div class="tag" onclick="filterByTag('Chinese')">Chinese</div>
+        <div class="tag" onclick="filterByTag('Indian')">Indian</div>
     </div>
+</header>
 
-    <script>
-        const data = [
-            {
-                imgUrl: "https://bit.ly/4gCtC1L",
-                websiteUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
-                videoUrl: "https://youtube.com/embed/CetjkiaH2x0",
-                title: "APOCALYPSE 2"
-            },
-            {
-                imgUrl: "https://bit.ly/4fFLfwd",
-                websiteUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
-                videoUrl: "https://youtube.com/embed/BAQV7hQdznE",
-                title: "VIKING BATTLE OF HEIRS"
-            },
-            {
-                imgUrl: "https://bit.ly/3VRBV13",
-                websiteUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
-                videoUrl: "https://youtube.com/embed/3_i60BLtN_s",
-                title: "GUNS OF EDEN"
-            },
-            {
-                imgUrl: "https://bit.ly/4gFznvC",
-                websiteUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
-                videoUrl: "https://youtube.com/embed/SFtKVKoscqA",
-                title: "CORA"
-            },
-            {
-                imgUrl: "https://bit.ly/4gDe4dm",
-                websiteUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
-                videoUrl: "https://youtube.com/embed/hJzZRl1C8X0",
-                title: "JACK THE GIANT SLAYER"
-            },
-            {
-                imgUrl: "https://bit.ly/405kXOj",
-                websiteUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
-                videoUrl: "https://youtube.com/embed/CumW3IY1mMg",
-                title: "GOD OF WAR"
-            },
-            {
-                imgUrl: "https://bit.ly/4fwBQqK",
-                websiteUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
-                videoUrl: "https://youtube.com/embed/BjkncLAZu80",
-                title: "VIKING HUNTRESS"
-            },
-            {
-                imgUrl: "https://bit.ly/3BxGSW6",
-                websiteUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
-                videoUrl: "https://youtube.com/embed/siFLpeqOWDQ",
-                title: "KNIGHT OF THE DEAD"
-            },
-            {
-                imgUrl: "https://bit.ly/3ZLSaxS",
-                websiteUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
-                videoUrl: "https://youtube.com/embed/UPjyNg1mKAM",
-                title: "JURASSIC TRIANGLE"
-            },
-            {
-                imgUrl: "https://bit.ly/3VSO1am",
-                websiteUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
-                videoUrl: "https://youtube.com/embed/iTNyJse9fdk",
-                title: "ALIEN INVASION"
-            },
-            {
-                imgUrl: "https://bit.ly/3Pi2GYX",
-                websiteUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
-                videoUrl: "https://youtube.com/embed/Ma9xquhYyT0",
-                title: "GOATMAN"
-            }
-        ];
+<div id="frames-container"></div>
 
-        const createFrames = () => {
-            const container = document.getElementById('frames-container');
-            container.innerHTML = '';
+<div id="video-nav">
+    <button id="close-btn" onclick="closeNav()">X</button>
+    <iframe id="video-player" src="" frameborder="0" allowfullscreen></iframe>
+</div>
 
-            data.forEach((item, index) => {
-                const isUnlocked = checkUnlockStatus(index);
+<script>
+    const data = [
+        {
+            imgUrl: "https://via.placeholder.com/300x200?text=American+Video+1",
+            videoUrl: "https://youtube.com/embed/VIDEO_ID_1",
+            adUrl: "https://example.com/ad1",
+            title: "American Video 1",
+            tag: "America"
+        },
+        {
+            imgUrl: "https://via.placeholder.com/300x200?text=Chinese+Video+1",
+            videoUrl: "https://youtube.com/embed/VIDEO_ID_2",
+            adUrl: "https://example.com/ad2",
+            title: "Chinese Video 1",
+            tag: "Chinese"
+        },
+        {
+            imgUrl: "https://via.placeholder.com/300x200?text=Indian+Video+1",
+            videoUrl: "https://youtube.com/embed/VIDEO_ID_3",
+            adUrl: "https://example.com/ad3",
+            title: "Indian Video 1",
+            tag: "Indian"
+        }
+    ];
 
-                const frame = document.createElement('div');
-                frame.className = 'frame';
+    const createFrames = (filteredData = data) => {
+        const container = document.getElementById('frames-container');
+        container.innerHTML = '';
 
-                const img = document.createElement('img');
-                img.src = item.imgUrl;
-                img.alt = item.title;
-                img.onclick = () => {
-                    if (isUnlocked) {
-                        openVideoNav(item.videoUrl);
-                    } else {
-                        showCustomMessage("Watch the ad to unlock the video.");
-                    }
-                };
+        filteredData.forEach((item) => {
+            const frame = document.createElement('div');
+            frame.className = 'frame';
 
-                const content = document.createElement('div');
-                content.className = 'content';
+            const img = document.createElement('img');
+            img.src = item.imgUrl;
+            img.alt = item.title;
+            img.onclick = () => openVideoNav(item.videoUrl, item.adUrl);
 
-                const title = document.createElement('h2');
-                title.textContent = item.title;
+            const content = document.createElement('div');
+            content.className = 'content';
 
-                const button = document.createElement('button');
-                button.textContent = isUnlocked ? "Unlocked (1 hour)" : "Watch Ad";
-                button.disabled = isUnlocked;
-                button.onclick = () => openWebsite(item.websiteUrl, index);
+            const title = document.createElement('h2');
+            title.textContent = item.title;
 
-                content.appendChild(title);
-                content.appendChild(button);
-                frame.appendChild(img);
-                frame.appendChild(content);
-                container.appendChild(frame);
-            });
-        };
+            const watchAdBtn = document.createElement('button');
+            watchAdBtn.className = 'watch-ad-btn';
+            watchAdBtn.textContent = 'Watch Ad';
+            watchAdBtn.onclick = () => {
+                visitAdUrl(item.adUrl);
+            };
 
-        const checkUnlockStatus = (index) => {
-            const unlockData = JSON.parse(localStorage.getItem('unlockedVideos')) || {};
-            const videoUnlockTime = unlockData[index];
+            content.appendChild(title);
+            content.appendChild(watchAdBtn);
+            frame.appendChild(img);
+            frame.appendChild(content);
+            container.appendChild(frame);
+        });
+    };
 
-            if (videoUnlockTime) {
-                const currentTime = Date.now();
-                const oneHourInMs = 60 * 60 * 1000;
+    const visitAdUrl = (adUrl) => {
+        window.open(adUrl, '_blank');
+        localStorage.setItem('adVisitTime', new Date().toString()); // Save visit time
+    };
 
-                if (currentTime - videoUnlockTime < oneHourInMs) {
-                    return true;
-                } else {
-                    delete unlockData[index];
-                    localStorage.setItem('unlockedVideos', JSON.stringify(unlockData));
-                    return false;
-                }
-            }
+    const openVideoNav = (videoUrl, adUrl) => {
+        const lastVisitTime = localStorage.getItem('adVisitTime');
+        if (!lastVisitTime || isAdExpired(new Date(lastVisitTime))) {
+            alert('Please visit the ad URL to unlock the video!');
+            return;
+        }
+        document.getElementById('video-nav').style.display = 'block';
+        document.getElementById('video-player').src = videoUrl;
+    };
 
-            return false;
-        };
+    const isAdExpired = (lastVisitTime) => {
+        const currentTime = new Date();
+        const elapsedTime = currentTime - lastVisitTime;
+        return elapsedTime > 3 * 60 * 60 * 1000; // 3 hours in milliseconds
+    };
 
-        const unlockVideo = (index) => {
-            const unlockData = JSON.parse(localStorage.getItem('unlockedVideos')) || {};
-            unlockData[index] = Date.now();
-            localStorage.setItem('unlockedVideos', JSON.stringify(unlockData));
-            createFrames();
-        };
+    const closeNav = () => {
+        document.getElementById('video-nav').style.display = 'none';
+        document.getElementById('video-player').src = '';
+    };
 
-        const showCustomMessage = (message) => {
-            const messageBox = document.getElementById('customMessage');
-            const messageText = document.getElementById('messageText');
+    const handleSearch = () => {
+        const searchTerm = document.getElementById('search-bar').value.toLowerCase();
+        const filteredData = data.filter(item => item.title.toLowerCase().includes(searchTerm));
+        createFrames(filteredData);
+    };
 
-            messageText.textContent = message;
-            messageBox.style.display = 'block';
-        };
+    const filterByTag = (tag) => {
+        const filteredData = data.filter(item => item.tag === tag);
+        createFrames(filteredData);
+    };
 
-        const closeCustomMessage = () => {
-            document.getElementById('customMessage').style.display = 'none';
-        };
+    createFrames();
+</script>
 
-        const openWebsite = (url, index) => {
-            showCustomMessage("Please wait for 15 seconds...");
-            let timeLeft = 15;
-            const countdown = document.getElementById('messageText');
-            countdown.textContent = `Stay on the page for ${timeLeft} seconds`;
-
-            const timer = setInterval(() => {
-                timeLeft--;
-                countdown.textContent = `Stay on the page for ${timeLeft} seconds`;
-
-                if (timeLeft <= 0) {
-                    clearInterval(timer);
-                    unlockVideo(index);
-                    closeCustomMessage();
-                }
-            }, 1000);
-
-            window.open(url, '_blank');
-        };
-
-        const openVideoNav = (videoUrl) => {
-            const iframe = document.getElementById('videoFrame');
-            iframe.src = videoUrl;
-            document.getElementById('videoNav').style.display = 'flex';
-        };
-
-        const closeVideoNav = () => {
-            const iframe = document.getElementById('videoFrame');
-            iframe.src = "";
-            document.getElementById('videoNav').style.display = 'none';
-        };
-
-        createFrames();
-    </script>
 </body>
 </html>
