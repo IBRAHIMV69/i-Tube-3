@@ -16,12 +16,12 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100px;
+            height: 90px;
             background-color: #fff;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 10px 20px;
+            padding: 10px 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             z-index: 1000;
         }
@@ -38,23 +38,23 @@
         }
         #search-bar {
             flex: 1;
-            margin: 0 20px;
-            padding: 10px;
+            margin: 0 12px;
+            padding: 10px 0px;
             border: 1px solid #ddd;
             border-radius: 20px;
-            font-size: 16px;
+            font-size: 8px;
         }
         .icons {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 5px;
         }
         .tags {
             display: flex;
             gap: 10px;
             margin-top: 10px;
             overflow-x: auto;
-            padding: 10px 0;
+            padding: 8px 0;
             width: 100%;
         }
         .tags .tag {
@@ -69,40 +69,64 @@
             margin-top: 120px;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            padding: 20px;
+            gap: 4px;
+            padding: 7px;
         }
         .frame {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border: 1px solid #ddd;
+            width: 100%; /* Full width of the grid column */
+            background-color: #fff;
             border-radius: 8px;
-            padding: 10px;
-            background-color: white;
-        }
-        .frame img {
-            max-width: 100%;
-            border-radius: 8px;
-        }
-        .frame .content {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
             text-align: center;
         }
-        .content h2 {
-            margin: 10px 0;
-        }
-        .content .watch-ad-btn {
-            padding: 10px 20px;
-            margin-top: 10px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
+
+        .frame img {
+            width: 100%;
+            aspect-ratio: 16 / 23; /* Maintain consistent image proportions */
+            object-fit: cover;
             cursor: pointer;
-            font-size: 14px;
         }
-        .content .watch-ad-btn:hover {
-            background-color: #0056b3;
+
+        .frame .content {
+            padding: 2px;
+        }
+
+        .frame .content h2 {
+            font-size: 7px; /* Adjusted font size */
+            margin: 0 0 8px;
+            color: #333;
+        }
+
+        .frame .content p {
+            font-size: 0.5px;
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .frame .content button {
+        background-color: #FF0000;
+        color: #fff;
+        border: 1px solid #ccc;
+        padding: 7px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        font-size: 9px;
+        text-align: center;
+    }
+
+        .frame .content button:hover {
+            background-color: #FF0000;
+        }
+
+        @media (max-width: 200px) {
+            #frames-container {
+                grid-template-columns: 1fr; /* Single column layout for smaller screens */
+            }
         }
         #video-nav {
             display: none;
@@ -111,14 +135,14 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: white;
-            padding: 20px;
+            padding: 1px;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
             z-index: 1001;
         }
         #video-nav iframe {
-            width: 560px;
-            height: 315px;
+            width: 360px;
+            height: 660px;
             border: none;
         }
         #close-btn {
@@ -129,7 +153,7 @@
             background-color: red;
             color: white;
             border: none;
-            border-radius: 50%;
+            border-radius: 8%;
             cursor: pointer;
         }
     </style>
@@ -138,45 +162,95 @@
 
 <header>
     <div class="header-top">
-        <div class="logo">MyTube</div>
-        <input type="text" id="search-bar" placeholder="Search for a video by title..." oninput="handleSearch()" />
+        <div class="logo">i TUBE</div>
+        <input type="text" id="search-bar" placeholder=" Search i Tube..." oninput="handleSearch()" />
     </div>
     <div class="tags">
         <div class="tag" onclick="filterByTag('America')">America</div>
         <div class="tag" onclick="filterByTag('Chinese')">Chinese</div>
         <div class="tag" onclick="filterByTag('Indian')">Indian</div>
+        <div class="tag" onclick="filterByTag('Europe')">Europe</div>
+        <div class="tag" onclick="filterByTag('Africa')">Africa</div>
+        <div class="tag" onclick="filterByTag('Japan')">Japan</div>
+        <div class="tag" onclick="filterByTag('Australia')">Australia</div>
     </div>
 </header>
 
 <div id="frames-container"></div>
 
 <div id="video-nav">
-    <button id="close-btn" onclick="closeNav()">X</button>
+    <button id="close-btn" onclick="closeNav()">Close</button>
     <iframe id="video-player" src="" frameborder="0" allowfullscreen></iframe>
 </div>
 
 <script>
     const data = [
         {
-            imgUrl: "https://via.placeholder.com/300x200?text=American+Video+1",
-            videoUrl: "https://youtube.com/embed/VIDEO_ID_1",
+            imgUrl: "https://bit.ly/4gCtC1L",
+            videoUrl: "https://youtube.com/embed/CetjkiaH2x0",
+            adUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
+            title: "APOCALYPSE 2",
+            tag: "America",
+            videoId: "VIDEO_ID_1"
+        },
+        {
+            imgUrl: "https://bit.ly/4fFLfwd",
+            videoUrl: "https://youtube.com/embed/BAQV7hQdznE",
+            adUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
+            title: "VIKING BATTLE OF HEIRS",
+            tag: "Chinese",
+            videoId: "VIDEO_ID_2"
+        },
+        {
+            imgUrl: "https://bit.ly/3VRBV13",
+            videoUrl: "https://youtube.com/embed/3_i60BLtN_s",
+            adUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
+            title: "GUNS OF EDEN",
+            tag: "America",
+        },
+        {
+            imgUrl: "https://bit.ly/405kXOj",
+            videoUrl: "https://youtube.com/embed/CumW3IY1mMg",
+            adUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
+            title: "GOD OF WAR",
+            tag: "America",
+        },
+        {
+            imgUrl: "https://bit.ly/4gFznvC",
+            videoUrl: "https://youtube.com/embed/SFtKVKoscqA",
+            adUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
+            title: "CORA",
+            tag: "America",
+        },
+        {
+            imgUrl: "https://bit.ly/4gDe4dm",
+            videoUrl: "https://youtube.com/embed/hJzZRl1C8X0",
+            adUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
+            title: "JACK THE GIANT SLAYER",
+            tag: "America",
+        },
+        {
+            imgUrl: "https://bit.ly/4gCtC1L",
+            videoUrl: "https://youtube.com/embed/CetjkiaH2x0",
             adUrl: "https://example.com/ad1",
             title: "American Video 1",
-            tag: "America"
+            tag: "America",
         },
         {
             imgUrl: "https://via.placeholder.com/300x200?text=Chinese+Video+1",
             videoUrl: "https://youtube.com/embed/VIDEO_ID_2",
             adUrl: "https://example.com/ad2",
             title: "Chinese Video 1",
-            tag: "Chinese"
+            tag: "Chinese",
+            videoId: "VIDEO_ID_2"
         },
         {
             imgUrl: "https://via.placeholder.com/300x200?text=Indian+Video+1",
             videoUrl: "https://youtube.com/embed/VIDEO_ID_3",
             adUrl: "https://example.com/ad3",
             title: "Indian Video 1",
-            tag: "Indian"
+            tag: "Indian",
+            videoId: "VIDEO_ID_3"
         }
     ];
 
@@ -191,7 +265,7 @@
             const img = document.createElement('img');
             img.src = item.imgUrl;
             img.alt = item.title;
-            img.onclick = () => openVideoNav(item.videoUrl, item.adUrl);
+            img.onclick = () => openVideoNav(item.videoUrl, item.videoId);
 
             const content = document.createElement('div');
             content.className = 'content';
@@ -202,9 +276,7 @@
             const watchAdBtn = document.createElement('button');
             watchAdBtn.className = 'watch-ad-btn';
             watchAdBtn.textContent = 'Watch Ad';
-            watchAdBtn.onclick = () => {
-                visitAdUrl(item.adUrl);
-            };
+            watchAdBtn.onclick = () => visitAd(item.videoId, item.adUrl);
 
             content.appendChild(title);
             content.appendChild(watchAdBtn);
@@ -214,25 +286,27 @@
         });
     };
 
-    const visitAdUrl = (adUrl) => {
+    const visitAd = (videoId, adUrl) => {
+        // Open the ad URL in a new tab
         window.open(adUrl, '_blank');
-        localStorage.setItem('adVisitTime', new Date().toString()); // Save visit time
+
+        // Save the visit time and expiration
+        localStorage.setItem(`${videoId}-ad-visited`, Date.now());
+        localStorage.setItem(`${videoId}-ad-expires`, Date.now() + 3 * 60 * 60 * 1000); // expires in 3 hours
+        (`You've visited the ad for ${videoId}. Video will be unlocked for 3 hours.`);
     };
 
-    const openVideoNav = (videoUrl, adUrl) => {
-        const lastVisitTime = localStorage.getItem('adVisitTime');
-        if (!lastVisitTime || isAdExpired(new Date(lastVisitTime))) {
-            alert('Please visit the ad URL to unlock the video!');
+    const openVideoNav = (videoUrl, videoId) => {
+        const adExpiration = localStorage.getItem(`${videoId}-ad-expires`);
+        const currentTime = Date.now();
+
+        if (!adExpiration || currentTime > adExpiration) {
+            alert('You need to visit the ad first to unlock this video!');
             return;
         }
+
         document.getElementById('video-nav').style.display = 'block';
         document.getElementById('video-player').src = videoUrl;
-    };
-
-    const isAdExpired = (lastVisitTime) => {
-        const currentTime = new Date();
-        const elapsedTime = currentTime - lastVisitTime;
-        return elapsedTime > 3 * 60 * 60 * 1000; // 3 hours in milliseconds
     };
 
     const closeNav = () => {
