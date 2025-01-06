@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Unlock System</title>
+    <title>i Tube</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -32,7 +32,7 @@
             width: 100%;
         }
         .logo {
-            font-size: 19px;
+            font-size: 20px;
             border: 1px solid #ccc;
             background-color: #ff0000;
             border-radius: 20px;
@@ -43,15 +43,10 @@
         #search-bar {
             flex: 1;
             margin: 0 12px;
-            padding: 6px 0px;
+            padding: 6px;
             border: 2px solid #ccc;
             border-radius: 20px;
             font-size: 12px;
-        }
-        .icons {
-            display: flex;
-            align-items: center;
-            gap: 5px;
         }
         .tags {
             display: flex;
@@ -77,60 +72,40 @@
             padding: 7px;
         }
         .frame {
-            width: 100%; /* Full width of the grid column */
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             text-align: center;
         }
-
         .frame img {
             width: 100%;
-            aspect-ratio: 16 / 23; /* Maintain consistent image proportions */
+            aspect-ratio: 16 / 24;
             object-fit: cover;
             cursor: pointer;
         }
-
         .frame .content {
-            padding: 2px;
+            padding: 4px;
         }
-
         .frame .content h2 {
-            font-size: 7px; /* Adjusted font size */
-            margin: 0 0 8px;
+            font-size: 3px;
+            margin: 0 0 5px;
             color: #333;
         }
-
-        .frame .content p {
-            font-size: 0.5px;
-            margin: 5px 0;
-            color: #555;
+        .subscribe-btn {
+            display: inline-block;
+            margin-top: 0px;
+            padding: 2px 30px;
+            background-color: #f0f0f0;
+            color: black;
+            border: 1px solid #ccc;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 10px;
+            cursor: pointer;
         }
-
-        .frame .content button {
-        background-color: #FF0000;
-        color: #fff;
-        border: 1px solid #ccc;
-        padding: 7px 20px;
-        border-radius: 8px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        font-size: 9px;
-        text-align: center;
-    }
-
-        .frame .content button:hover {
-            background-color: #FF0000;
-        }
-
-        @media (max-width: 200px) {
-            #frames-container {
-                grid-template-columns: 1fr; /* Single column layout for smaller screens */
-            }
+        .subscribe-btn:hover {
+            background-color: #f0f0f0;
         }
         #video-nav {
             display: none;
@@ -160,75 +135,107 @@
             border-radius: 8%;
             cursor: pointer;
         }
-        .notification {
-    padding: 15px 25px;
-    font-size: 10px;
-    font-weight: bold;
-    color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    animation: fadeInOut 3s ease-in-out;
+        /* Bottom Navigation Bar */
+#bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
 }
 
-/* Success notification */
-.notification.success {
-    background-color: #4caf50; /* Green */
-}
-
-/* Warning notification */
-.notification.warning {
-    background-color: #ff9800; /* Orange */
-}
-
-/* Info notification */
-.notification.info {
-    background-color: #2196f3; /* Blue */
-}
-
-/* Animation for fade in/out effect */
-@keyframes fadeInOut {
-    0% {
-        opacity: 0;
-        transform: translate(-50%, -60%);
-    }
-    10% {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-    }
-    90% {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-    }
-    100% {
-        opacity: 0;
-        transform: translate(-50%, -40%);
-    }
-}
-.button {
-    padding: 10px 20px;
-    font-size: 16px;
-    color: #fff;
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    font-size: 8px;
+    text-decoration: none;
     border: none;
-    border-radius: 5px;
+    background: none;
+    outline: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: color 0.3s ease;
 }
 
-button:hover {
-    opacity: 0.9;
+.nav-item i {
+    font-size: 20px;
+    margin-bottom: 5px;
 }
 
-button:disabled {
-    cursor: not-allowed;
+.nav-item:hover {
+    color: #e60023; /* Pinterest red color */
 }
 
-button.green {
-    background-color: #4caf50;
+.nav-item.active {
+    color: #e60023;
+}
+/* Bottom navigation bar styling */
+#bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f9fa;
+    padding: 5px 0;
+    border-top: 1px solid #ccc;
+    transition: transform 0.3s ease-in-out; /* Smooth hide/show animation */
+    z-index: 1000;
+}
+.install-message {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff; /* Blue background */
+    color: #333;
+    padding: 2px 20px;
+    border-radius: 12px;
+    display: flex;
+    font-size: 9.8px;
+    border: 1px solid #ccc;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10000;
 }
 
-button.blue {
-    background-color: #007bff;
+.install-btn {
+    background-color: #ff0000; /* Green button */
+    color: white;
+    border: 1px solid #ccc;
+    padding: 10px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 1px; /* Space between the paragraph and the button */
+}
+
+.close-btn {
+    background-color: transparent;
+    color: white;
+    font-size: 8px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    font-weight: bold;
+    position: absolute;
+    top: 15px;
+    right: 10px;
+}
+
+.close-btn:hover {
+    color: #ff0000;
 }
     </style>
 </head>
@@ -237,184 +244,377 @@ button.blue {
 <header>
     <div class="header-top">
         <div class="logo">i Tube</div>
-        <input type="text" id="search-bar" placeholder=" Search i Tube..." oninput="handleSearch()" />
+        <input type="text" id="search-bar" placeholder="Search i Tube..." oninput="handleSearch()" />
     </div>
     <div class="tags">
-        <div class="tag" onclick="filterByTag('America')">America</div>
+        <div class="tag" onclick="filterByTag('Monster')">Monster</div>
+        <div class="tag" onclick="filterByTag('Horror')">Horror</div>
+        <div class="tag" onclick="filterByTag('Battles')">Battles</div>
         <div class="tag" onclick="filterByTag('Chinese')">Chinese</div>
-        <div class="tag" onclick="filterByTag('Indian')">Indian</div>
-        <div class="tag" onclick="filterByTag('Europe')">Europe</div>
-        <div class="tag" onclick="filterByTag('Africa')">Africa</div>
-        <div class="tag" onclick="filterByTag('Japan')">Japan</div>
-        <div class="tag" onclick="filterByTag('Australia')">Australia</div>
+        <div class="tag" onclick="filterByTag('Hindi')">Hindi</div>
+        <div class="tag" onclick="filterByTag('Japan')">Adventure</div>
+        <div class="tag" onclick="filterByTag('Australia')">Zombies</div>
     </div>
 </header>
+
+<div id="install-message" class="install-message" style="display: none;">
+    <p>For non-stop video enjoyment, install the i Tube app now!</p>
+    <a href="https://drive.google.com/file/d/1M2BGHFzJGC_hlYgZQddiZmDXtxAiY2ML/view?usp=drivesdk" class="install-btn" target="_blank">Install Now</a>
+    <button id="close-btn" class="close-btn">✖</button>
+</div>
 
 <div id="frames-container"></div>
 
 <div id="video-nav">
     <button id="close-btn" onclick="closeNav()">Close</button>
-    <iframe id="video-player" src="" frameborder="0" allowfullscreen></iframe>
+    <iframe id="video-player" src="" allowfullscreen></iframe>
 </div>
+
+<div id="bottom-nav">
+    <a href="" class="nav-item" target="_blank">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+    </a>
+    <a href="https://singles-girls.netlify.app/" class="nav-item" target="_blank">
+        <i class="fas fa-heart"></i>
+        <span>Singles Girls</span>
+    </a>
+    <a href="" class="nav-item" target="_blank">
+        <i class="fas fa-plus-circle"></i>
+        <span>Upload</span>
+    </a>
+    <a href="" class="nav-item" target="_blank">
+        <i class="fas fa-store"></i>
+        <span>Marketplace</span>
+    </a>
+    <a href="" class="nav-item" target="_blank">
+        <i class="fas fa-book"></i>
+        <span>Novels</span>
+    </a>
+</div>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
 <script>
     const data = [
         {
             imgUrl: "https://bit.ly/4gCtC1L",
             videoUrl: "https://youtube.com/embed/CetjkiaH2x0",
-            adUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
-            title: "APOCALYPSE 2",
-            tag: "America",
-            videoId: "VIDEO_ID_1"            
+            title: "APOCALYPSE",
+            tag: "Battles",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
         },
         {
             imgUrl: "https://bit.ly/4fFLfwd",
             videoUrl: "https://youtube.com/embed/BAQV7hQdznE",
-            adUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
-            title: "VIKING BATTLE OF HEIRS",
-            tag: "Chinese",
+            title: "VIKING BATTLE",
+            tag: "Battles",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
         },
         {
-            imgUrl: "https://bit.ly/3VRBV13",
-            videoUrl: "https://youtube.com/embed/3_i60BLtN_s",
-            adUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
-            title: "GUNS OF EDEN",
-            tag: "America",
+            imgUrl: "https://bit.ly/4gZ1VzL",
+            videoUrl: "https://youtube.com/embed/xzk1ko7AN2M",
+            title: "PTERODACTYL 2",
+            tag: "Monster",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
         },
         {
-            imgUrl: "https://bit.ly/405kXOj",
-            videoUrl: "https://youtube.com/embed/CumW3IY1mMg",
-            adUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
-            title: "GOD OF WAR",
-            tag: "America",
+            imgUrl: "https://bit.ly/3Phnujl",
+            videoUrl: "https://youtube.com/embed/rsvGs96-ddo",
+            title: "TSUNAMI SHARKS",
+            tag: "Monster",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
+        },
+        {
+            imgUrl: "https://bit.ly/4gu8VVv",
+            videoUrl: "https://youtube.com/embed/t7zbGjXvUxA",
+            title: "SKY MONSTER",
+            tag: "Monster",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
+        },
+        {
+            imgUrl: "https://bit.ly/3W3HPMy",
+            videoUrl: "https://youtube.com/embed/_vFRK1LGWoE",
+            title: "DOUBLE ISMART",
+            tag: "Hindi",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
         },
         {
             imgUrl: "https://bit.ly/4gFznvC",
             videoUrl: "https://youtube.com/embed/SFtKVKoscqA",
-            adUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
             title: "CORA",
-            tag: "America",
+            tag: "Horror",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
         },
         {
             imgUrl: "https://bit.ly/4gDe4dm",
             videoUrl: "https://youtube.com/embed/hJzZRl1C8X0",
-            adUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
             title: "JACK THE GIANT SLAYER",
-            tag: "America",
+            tag: "Battles",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
+        },
+        {
+            imgUrl: "https://bit.ly/3Pqqx8F",
+            videoUrl: "https://youtube.com/embed/O2rwH27PJx8",
+            title: "SALAAR",
+            tag: "Hindi",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
+        },
+        {
+            imgUrl: "https://bit.ly/3VRBV13",
+            videoUrl: "https://youtube.com/embed/3_i60BLtN_s",
+            title: "GUNS OF EDEN",
+            tag: "Europe",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
         },
         {
             imgUrl: "https://bit.ly/4fwBQqK",
             videoUrl: "https://youtube.com/embed/BjkncLAZu80",
-            adUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
             title: "VIKING HUNTRESS",
-            tag: "America",
+            tag: "Battles",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
         },
         {
-            imgUrl: "https://bit.ly/3ZLSaxS",
+            imgUrl: "https://bit.ly/40lmWPB",
             videoUrl: "https://youtube.com/embed/UPjyNg1mKAM",
-            adUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
             title: "JURASSIC TRIANGLE",
-            tag: "America",
+            tag: "Monster",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
         },
         {
             imgUrl: "https://bit.ly/3VSO1am",
             videoUrl: "https://youtube.com/embed/iTNyJse9fdk",
-            adUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
             title: "ALIEN INVASION",
-            tag: "America",
+            tag: "Monster",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
         },
         {
             imgUrl: "https://bit.ly/3BxGSW6",
             videoUrl: "https://youtube.com/embed/siFLpeqOWDQ",
-            adUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
             title: "KNIGHT OF THE DEAD",
-            tag: "America",
+            tag: "Europe",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
         },
         {
             imgUrl: "https://bit.ly/3Pi2GYX",
             videoUrl: "https://youtube.com/embed/Ma9xquhYyT0",
-            adUrl: "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb",
             title: "GOATMAN",
-            tag: "America",
-        }
+            tag: "Horror",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
+        },
+        {
+            imgUrl: "https://bit.ly/405kXOj",
+            videoUrl: "https://youtube.com/embed/CumW3IY1mMg",
+            title: "GOD OF WAR",
+            tag: "Europe",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
+        },
+        {
+            imgUrl: "https://bit.ly/4iWnymb",
+            videoUrl: "https://youtube.com/embed/5nxOTg0fXMc",
+            title: "JABBERWOCK DRAGON",
+            tag: "Battles",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
+        },
+        {
+            imgUrl: "https://bit.ly/4jePAJV",
+            videoUrl: "https://youtube.com/embed/V_ZZqYSCHXs",
+            title: "TIGER HUNTER",
+            tag: "Chinese",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
+        },
+        {
+            imgUrl: "https://bit.ly/40hvHtW",
+            videoUrl: "https://youtube.com/embed/DAY_-IjpvTc",
+            title: "KUNLUN LABYRINTH",
+            tag: "Monster",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
+        },
+        {
+            imgUrl: "https://bit.ly/4gDcjxs",
+            videoUrl: "https://youtube.com/embed/BHPaUT2hSKU",
+            title: "SUNFALL",
+            tag: "Europe",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
+        },
+        {
+            imgUrl: "https://bit.ly/4gCtcbn",
+            videoUrl: "https://youtube.com/embed/9QB2GjHg0Tw",
+            title: "FLIGHT FROM HELL",
+            tag: "Europe",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
+        },
+        {
+            imgUrl: "https://bit.ly/3ZVlYIu",
+            videoUrl: "https://youtube.com/embed/HK2Q8CeTJTc",
+            title: "THRILL OF THE KILL",
+            tag: "Europe",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
+        },
+        {
+            imgUrl: "https://bit.ly/4fL0OCC",
+            videoUrl: "https://youtube.com/embed/88Xjes9lppY",
+            title: "BULL SHARK",
+            tag: "Monster",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
+        },
+        {
+            imgUrl: "https://bit.ly/3DRd3jN",
+            videoUrl: "https://youtube.com/embed/4Z9xQDqX9e0",
+            title: "VAMPYRE NATION",
+            tag: "Europe",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
+        },
+        {
+            imgUrl: "https://bit.ly/3DBZjcJ",
+            videoUrl: "https://youtube.com/embed/xtd4VSowu6I",
+            title: "AMBER ALERT",
+            tag: "Europe",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
+        },
+        {
+            imgUrl: "https://bit.ly/3BPUxb7",
+            videoUrl: "https://youtube.com/embed/WuGAw0cYHL4",
+            title: "LIGHTNING STRIKES",
+            tag: "Europe",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
+        },
+        {
+            imgUrl: "https://bit.ly/4jg9nsr",
+            videoUrl: "https://youtube.com/embed/esKGH-ThwYg",
+            title: "FLIRTING WITH DANGER",
+            tag: "Europe",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
+        },
+        {
+            imgUrl: "https://bit.ly/4jgayYT",
+            videoUrl: "https://youtube.com/embed/QEdJmkXQ7k4",
+            title: "THE ANDY BAKER TAPE",
+            tag: "Europe",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
+        },
+        {
+            imgUrl: "https://bit.ly/3DGl3Eq",
+            videoUrl: "https://youtube.com/embed/kV9H6Kba56s",
+            title: "A BATTLE OF WITS",
+            tag: "Battles",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
+        },
+        {
+            imgUrl: "https://bit.ly/3BXDsvN",
+            videoUrl: "https://youtube.com/embed/V7nfc3mZKWY",
+            title: "TEXAS TWISTER",
+            tag: "Europe",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
+        },
+        {
+            imgUrl: "https://bit.ly/423hS3z",
+            videoUrl: "https://youtube.com/embed/FNc4ArnSRiI",
+            title: "MONSTER GRIZZLY",
+            tag: "Monster",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
+        },
+        {
+            imgUrl: "https://bit.ly/3BLF8bX",
+            videoUrl: "https://youtube.com/embed/t9EmWFU2Xro",
+            title: "INVASION ROSWELL",
+            tag: "Europe",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
+        },
+        {
+            imgUrl: "https://bit.ly/3C09reR",
+            videoUrl: "https://youtube.com/embed/t2tTknlT_To",
+            title: "BURDEN OF EVIL",
+            tag: "Europe",
+            subscribeUrl: "https://www.youtube.com/@iTube_drs",
+            subscribeText: "Subscribe",
+        },
     ];
 
     const createFrames = (filteredData = data) => {
-    const container = document.getElementById('frames-container');
-    container.innerHTML = '';
-    filteredData.forEach((item) => {
-        const frame = document.createElement('div');
-        frame.className = 'frame';
+        const container = document.getElementById('frames-container');
+        container.innerHTML = '';
+        filteredData.forEach((item) => {
+            const frame = document.createElement('div');
+            frame.className = 'frame';
 
-        const img = document.createElement('img');
-        img.src = item.imgUrl;
-        img.alt = item.title;
-        img.onclick = () => openVideoNav(item.videoUrl, item.title);
+            const img = document.createElement('img');
+            img.src = item.imgUrl;
+            img.alt = item.title;
+            img.onclick = () => openVideoNav(item.videoUrl);
 
-        const content = document.createElement('div');
-        content.className = 'content';
+            const content = document.createElement('div');
+            content.className = 'content';
 
-        const title = document.createElement('h2');
-        title.textContent = item.title;
+            const title = document.createElement('h2');
+            title.textContent = item.title;
 
-        const button = document.createElement('button');
-        const visited = localStorage.getItem(`${item.title}-ad-visited`);
-        button.textContent = visited ? 'Unlocked ✅' : 'Watch Ad 🔒';
-        button.style.backgroundColor = visited ? '#4caf50' : '#ff0000'; // Green if unlocked
-        button.onclick = () => {
-            if (!visited) {
-                visitAd(item.title, item.adUrl, button);
-            } else {
-                showNotification('This video is already unlocked!', 'info');
-            }
+            const subscribeBtn = document.createElement('a');
+            subscribeBtn.href = item.subscribeUrl;
+            subscribeBtn.target = "_blank";
+            subscribeBtn.className = 'subscribe-btn';
+            subscribeBtn.textContent = item.subscribeText;
+
+            content.appendChild(title);
+            content.appendChild(subscribeBtn);
+            frame.appendChild(img);
+            frame.appendChild(content);
+            container.appendChild(frame);
+        });
+    };
+    
+    // Show the install message 15 seconds after the page loads
+window.onload = function() {
+    setTimeout(function() {
+        const installMessage = document.getElementById('install-message');
+        const closeButton = document.getElementById('close-btn');
+
+        // Display the message
+        installMessage.style.display = 'flex';
+
+        // Close the message when the close button is clicked
+        closeButton.onclick = function() {
+            installMessage.style.display = 'none';
         };
-
-        content.appendChild(title);
-        content.appendChild(button);
-        frame.appendChild(img);
-        frame.appendChild(content);
-        container.appendChild(frame);
-    });
+    }, 40000); // 40000 milliseconds = 30 seconds
 };
 
-const visitAd = (videoId, adUrl, button) => {
-    window.open(adUrl, '_blank');
-    localStorage.setItem(`${videoId}-ad-visited`, Date.now());
-    button.textContent = 'Unlocked 🔓'; // Update button text
-    button.style.backgroundColor = '#4caf50'; // Change button color to green
-    showNotification('The video is now unlocked!', 'success');
-};
-
-const openVideoNav = (videoUrl, videoId) => {
-    const visited = localStorage.getItem(`${videoId}-ad-visited`);
-    if (!visited) {
-        showNotification('Please Watch the Ad to unlock this Video.', 'warning');
-        return;
-    }
-    document.getElementById('video-nav').style.display = 'block';
-    document.getElementById('video-player').src = videoUrl;
-};
-
-const showNotification = (message, type) => {
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    notification.textContent = message;
-
-    // Append notification to the body
-    document.body.appendChild(notification);
-
-    // Center the notification
-    notification.style.position = 'fixed';
-    notification.style.top = '50%';
-    notification.style.left = '50%';
-    notification.style.transform = 'translate(-50%, -50%)';
-    notification.style.zIndex = '9999';
-
-    // Remove notification after 3 seconds
-    setTimeout(() => {
-        notification.remove();
-    }, 3000); // 3 seconds
-};
+    const openVideoNav = (videoUrl) => {
+        document.getElementById('video-nav').style.display = 'block';
+        document.getElementById('video-player').src = videoUrl;
+    };
 
     const closeNav = () => {
         document.getElementById('video-nav').style.display = 'none';
@@ -431,9 +631,78 @@ const showNotification = (message, type) => {
         const filteredData = data.filter(item => item.tag === tag);
         createFrames(filteredData);
     };
+    
+    const navItems = document.querySelectorAll('.nav-item');
+
+navItems.forEach((item) => {
+    item.addEventListener('click', () => {
+        navItems.forEach((nav) => nav.classList.remove('active'));
+        item.classList.add('active');
+    });
+});
+
+let lastScrollTop = 0; // Store the last scroll position
+const bottomNav = document.getElementById("bottom-nav");
+
+window.addEventListener("scroll", function () {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (scrollTop > lastScrollTop) {
+        // Scrolling down
+        bottomNav.style.transform = "translateY(100%)"; // Hide the bottom nav
+    } else {
+        // Scrolling up
+        bottomNav.style.transform = "translateY(0)"; // Show the bottom nav
+    }
+
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Update the last scroll position
+});
+    
+    // Shuffle the data array
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+// Array of links
+const links = [
+    "https://www.profitablecpmrate.com/mdzmc2az?key=fc460ea1942633b5443e8f21f2a2e52c",
+    "https://whomeenoaglauns.com/4/7908761",
+    "https://whomeenoaglauns.com/4/7908756",
+    "https://whomeenoaglauns.com/4/7597718"
+];
+
+// Retrieve the visit count from localStorage (default to 0 if not set)
+let visitCount = parseInt(localStorage.getItem("visitCount") || "0", 10);
+
+// Get the current link based on the visit count
+const currentLink = links[visitCount % links.length]; // Loop through links array
+
+// Increment the visit count and save it back to localStorage
+localStorage.setItem("visitCount", visitCount + 1);
+
+// Redirect to the current link after 5000 seconds
+setTimeout(() => {
+    window.location.href = currentLink;
+}, 5000000); // 5000 seconds in milliseconds
+    
+    // Shuffle the data array
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+// Shuffle videos on load
+const shuffledData = shuffleArray(data);
+console.log(shuffledData); // You can use this data to dynamically populate the page
 
     createFrames();
 </script>
-
 </body>
 </html>
