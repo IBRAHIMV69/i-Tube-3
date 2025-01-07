@@ -1,693 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Unlock System</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 90px;
-            background-color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 8px 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-        }
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-        .logo {
-            font-size: 20px;
-            border: 1px solid #ccc;
-            background-color: #ff0000;
-            border-radius: 20px;
-            padding: 2px 12px;
-            font-weight: bold;
-            color: #fff;
-        }
-        #search-bar {
-            flex: 1;
-            margin: 0 12px;
-            padding: 6px;
-            border: 2px solid #ccc;
-            border-radius: 20px;
-            font-size: 12px;
-        }
-        .tags {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-            overflow-x: auto;
-            padding: 8px 0;
-            width: 100%;
-        }
-        .tags .tag {
-            padding: 5px 10px;
-            background-color: #f1f1f1;
-            border-radius: 20px;
-            font-size: 14px;
-            cursor: pointer;
-            border: 1px solid #ddd;
-        }
-        .tags .tag:hover {
-    background-color: #000;
-    color: white;
-    border-color: #ccc;
-}
-        #frames-container {
-            margin-top: 120px;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 5px;
-            padding: 7px;
-        }
-        .frame {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            text-align: center;
-        }
-        .frame img {
-            width: 100%;
-            aspect-ratio: 16 / 9.1;
-            object-fit: cover;
-            cursor: pointer;
-        }
-        .frame .content {
-            padding: 5px;
-        }
-        .frame .content h2 {
-            font-size: 8px;
-            margin: 0 0 3px;
-            color: #333;
-        }
-        .subscribe-btn {
-            display: inline-block;
-            margin-top: 2px;
-            padding: 2px 15px;
-            background-color: #f0f0f0;
-            color: black;
-            border: 1px solid #ccc;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 8px;
-            cursor: pointer;
-        }
-        .subscribe-btn:hover {
-            background-color: #f0f0f0;
-        }
-        #video-nav {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 1px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            z-index: 1001;
-        }
-        #video-nav iframe {
-            width: 360px;
-            height: 660px;
-            border: none;
-        }
-        #close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            padding: 10px;
-            background-color: red;
-            color: white;
-            border: none;
-            border-radius: 8%;
-            cursor: pointer;
-        }
-        /* Bottom Navigation Bar */
-#bottom-nav {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 50px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #fff;
-    border-top: 1px solid #ddd;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comments Button with Social Media Icons</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+      font-family: Arial, sans-serif;
+      color: #333;
+      text-align: center;
+    }
 
-.nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #555;
-    font-size: 8px;
-    text-decoration: none;
-    border: none;
-    background: none;
-    outline: none;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
+    .description {
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #555;
+      max-width: 300px; /* Limit the width of the description */
+    }
 
-.nav-item i {
-    font-size: 20px;
-    margin-bottom: 5px;
-}
+    .comments-button {
+      display: inline-block;
+      margin-bottom: 20px;
+    }
 
-.nav-item:hover {
-    color: #e60023; /* Pinterest red color */
-}
+    .btn {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #0088cc;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
 
-.nav-item.active {
-    color: #e60023;
-}
-/* Bottom navigation bar styling */
-#bottom-nav {
-    display: flex;
-    justify-content: space-around;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #f8f9fa;
-    padding: 5px 0;
-    border-top: 1px solid #ccc;
-    transition: transform 0.3s ease-in-out; /* Smooth hide/show animation */
-    z-index: 1000;
-}
-.install-message {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #fff; /* Blue background */
-    color: #333;
-    padding: 2px 20px;
-    border-radius: 12px;
-    display: flex;
-    font-size: 9.8px;
-    border: 1px solid #ccc;
-    flex-direction: column; /* Stack items vertically */
-    align-items: center;
-    justify-content: center;
-    width: 80%;
-    max-width: 500px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 10000;
-}
+    .btn:hover {
+      background-color: #005f99;
+    }
 
-.install-btn {
-    background-color: #ff0000; /* Green button */
-    color: white;
-    border: 1px solid #ccc;
-    padding: 10px 25px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-    margin-top: 1px; /* Space between the paragraph and the button */
-}
+    .telegram-icon {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg');
+      background-size: cover;
+    }
 
-.close-btn {
-    background-color: transparent;
-    color: white;
-    font-size: 8px;
-    border: 1px solid #ccc;
-    cursor: pointer;
-    font-weight: bold;
-    position: absolute;
-    top: 15px;
-    right: 10px;
-}
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
 
-.close-btn:hover {
-    color: #ff0000;
-}
-    </style>
+    .social-icons a {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      transform: scale(1.1);
+    }
+
+    .facebook-icon { background-image: url('https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg'); }
+    .youtube-icon { background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png'); }
+    .instagram-icon { background-image: url('https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png'); }
+    .whatsapp-icon { background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg'); }
+    .tiktok-icon { background-image: url('https://upload.wikimedia.org/wikipedia/commons/a/a9/TikTok_logo.svg'); }
+    .twitter-icon { background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/60/Twitter_Logo_as_of_2021.svg'); }
+    .telegram-icon-social { background-image: url('https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg'); }
+  </style>
 </head>
 <body>
-
-<header>
-    <div class="header-top">
-        <div class="logo">i TUBE</div>
-        <input type="text" id="search-bar" placeholder="Search i Tube..." oninput="handleSearch()" />
-    </div>
-    <div class="tags">
-        <div class="tag" onclick="filterByTag('Action')">Action</div>
-        <div class="tag" onclick="filterByTag('Monster')">Monster</div>
-        <div class="tag" onclick="filterByTag('Horror')">Horror</div>
-        <div class="tag" onclick="filterByTag('Battles')">Battles</div>
-        <div class="tag" onclick="filterByTag('Sharks')">Sharks</div>
-        <div class="tag" onclick="filterByTag('Dragon')">Dragon</div>
-        <div class="tag" onclick="filterByTag('Action')">Action</div>
-        <div class="tag" onclick="filterByTag('Chinese')">Chinese</div>
-        <div class="tag" onclick="filterByTag('Hindi')">Hindi</div>
-        <div class="tag" onclick="filterByTag('Drama')">Drama</div>
-    </div>        
-</header>
-
-<div id="install-message" class="install-message" style="display: none;">
-    <p>For non-stop video enjoyment, install the i Tube app now!</p>
-    <a href="https://drive.google.com/file/d/1M2BGHFzJGC_hlYgZQddiZmDXtxAiY2ML/view?usp=drivesdk" class="install-btn" target="_blank">Install Now</a>
-    <button id="close-btn" class="close-btn">✖</button>
-</div>
-
-<div id="frames-container"></div>
-
-<div id="video-nav">
-    <button id="close-btn" onclick="closeNav()">Close</button>
-    <iframe id="video-player" src="" allowfullscreen></iframe>
-</div>
-
-<div id="bottom-nav">
-    <a href="" class="nav-item" target="_blank">
-        <i class="fas fa-home"></i>
-        <span>Home</span>
+  <div class="description">
+    Join the discussion and share your thoughts with us on Telegram. Click the button below to participate!
+  </div>
+  <div class="comments-button">
+    <a href="https://t.me/iTube_drs" target="_blank" class="btn">
+      <span class="telegram-icon"></span> Comments
     </a>
-    <a href="https://singles-girls.netlify.app/" class="nav-item" target="_blank">
-        <i class="fas fa-heart"></i>
-        <span>Singles Girls</span>
-    </a>    
-    <a href="" class="nav-item" target="_blank">
-        <i class="fas fa-plus-circle"></i>
-        <span>Upload</span>
-    
-    <a href="" class="nav-item" target="_blank">
-        <i class="fas fa-store"></i>
-        <span>Marketplace</span>
-    </a>        </a>
-    <a href="" class="nav-item" target="_blank">
-        <i class="fas fa-book"></i>
-        <span>Novels</span>
-    </a>
-</div>
+  </div>
+  <div class="social-icons">
+    <a href="https://www.facebook.com/iUP.Novels" target="_blank" class="facebook-icon"></a>
+    <a href="https://youtube.com/@itube_drs?si=MLO9nuv1Gedtth3W" target="_blank" class="youtube-icon"></a>
+    <a href="https://www.instagram.com/itube_drs?igsh=MXgyNGM3aHVwMHNlbg==" target="_blank" class="instagram-icon"></a>
+    <a href="https://t.me/iTube_drc" target="_blank" class="telegram-icon-social"></a>
+  </div>
+  
+  <script>
+      
+      // Redirect to the URL after 100 seconds
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+setTimeout(() => {
 
-<script>
-    const data = [
-        {
-            videoId: "CetjkiaH2x0",
-            title: "APOCALYPTO - FULL ACTION",
-            tag: "Battles",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "BAQV7hQdznE",
-            title: "VIKING BATTLE OF HEIRS - FULL ACTION",
-            tag: "Battles",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "xzk1ko7AN2M",
-            title: "PTERODACTYL 2 - FULL ACTION",
-            tag: "Monster",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "rsvGs96-ddo",
-            title: "TSUNAMI SHARKS - FULL ACTION",
-            tag: "Sharks",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "t7zbGjXvUxA",
-            title: "SKY MONSTER - FULL ACTION",
-            tag: "Monster",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "_vFRK1LGWoE",
-            title: "DOUBLE ISMART - FULL ACTION",
-            tag: "Hindi",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "SFtKVKoscqA",
-            title: "CORA - FULL ACTION",
-            tag: "Horror",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "hJzZRl1C8X0",
-            title: "JACK THE GIANT SLAYER - FULL ACTION",
-            tag: "Battles",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "O2rwH27PJx8",
-            title: "SALAAR - FULL ACTION",
-            tag: "Hindi",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "3_i60BLtN_s",
-            title: "GUNS OF EDEN - FULL ACTION",
-            tag: "Action",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "BjkncLAZu80",
-            title: "VIKING HUNTRESS - FULL ACTION",
-            tag: "Battles",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "UPjyNg1mKAM",
-            title: "JURASSIC TRIANGLE - FULL ACTION",
-            tag: "Monster",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "iTNyJse9fdk",
-            title: "ALIEN INVASION - FULL ACTION",
-            tag: "Horror",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "siFLpeqOWDQ",
-            title: "KNIGHT OF THE DEAD - FULL ACTION",
-            tag: "Battles",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "Ma9xquhYyT0",
-            title: "GOATMAN - FULL ACTION",
-            tag: "Horror",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "CumW3IY1mMg",
-            title: "GOD OF WAR - FULL ACTION",
-            tag: "Battles",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "5nxOTg0fXMc",
-            title: "JABBERWOCK DRAGON - FULL ACTION",
-            tag: "Dragon",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "V_ZZqYSCHXs",
-            title: "TIGER HUNTER - FULL ACTION",
-            tag: "Chinese",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "DAY_-IjpvTc",
-            title: "KUNLUN LABYRINTH - FULL ACTION",
-            tag: "Monster",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "BHPaUT2hSKU",
-            title: "SUNFALL - FULL ACTION",
-            tag: "Action",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "9QB2GjHg0Tw",
-            title: "FLIGHT FROM HELL - FULL ACTION",
-            tag: "Action",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "HK2Q8CeTJTc",
-            title: "THRILL OF THE KILL - FULL ACTION",
-            tag: "Action",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "88Xjes9lppY",
-            title: "BULL SHARK - FULL ACTION",
-            tag: "Sharks",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "4Z9xQDqX9e0",
-            title: "VAMPYRE NATION - FULL ACTION",
-            tag: "Action",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "xtd4VSowu6I",
-            title: "AMBER ALERT - FULL ACTION",
-            tag: "Action",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "WuGAw0cYHL4",
-            title: "LIGHTNING STRIKES - FULL ACTION",
-            tag: "Action",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "esKGH-ThwYg",
-            title: "FLIRTING WITH DANGER - FULL ACTION",
-            tag: "Action",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "QEdJmkXQ7k4",
-            title: "THE ANDY BAKER TAPE - FULL ACTION",
-            tag: "Action",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "V7nfc3mZKWY",
-            title: "TEXAS TWISTER - FULL ACTION",
-            tag: "Action",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "FNc4ArnSRiI",
-            title: "MONSTER GRIZZLY - FULL ACTION",
-            tag: "Monster",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "t9EmWFU2Xro",
-            title: "INVASION ROSWELL - FULL ACTION",
-            tag: "Action",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "t2tTknlT_To",
-            title: "BURDEN OF EVIL - FULL ACTION",
-            tag: "Action",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "v0m_HBGqSQw",
-            title: "FALCON DOWN - FULL ACTION",
-            tag: "Action",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "B5NS3WXLxoQ",
-            title: "CONAN, THE ADVENTURER: IMPOSTOR - FULL ACTION",
-            tag: "Battles",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "hEm2uXBR_aI",
-            title: "THE DISAPEARANCE OF FLIGHT 412 - FULL ACTION",
-            tag: "Action",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "lxQ28jSsAcI",
-            title: "SPACE - FULL ACTION MOVIE",
-            tag: "Horror",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-        {
-            videoId: "ZrUQwAjI6gI",
-            title: "💥The useless boy challenges the giant scorpion and fights back on the brink of life and death!",
-            tag: "Action",
-            subscribeUrl: "https://i-tube3.netlify.app/",
-            subscribeText: "🗨️ Comments",
-        },
-    ];
+    window.location.href = "https://www.profitablecpmrate.com/hz39pi8hu?key=b1e59314de7d94008170a99be19232cb";
 
-    const createFrames = (filteredData = data) => {
-        const container = document.getElementById('frames-container');
-        container.innerHTML = '';
-        filteredData.forEach((item) => {
-            const frame = document.createElement('div');
-            frame.className = 'frame';
+}, 100); // 10 seconds in milliseconds
 
-            const img = document.createElement('img');
-            img.src = `https://img.youtube.com/vi/${item.videoId}/0.jpg`;
-            img.alt = item.title;
-            img.onclick = () => openVideoNav(item.videoId);
-
-            const content = document.createElement('div');
-            content.className = 'content';
-
-            const title = document.createElement('h2');
-            title.textContent = item.title;
-
-            const subscribeBtn = document.createElement('a');
-            subscribeBtn.href = item.subscribeUrl;
-            subscribeBtn.target = "_blank";
-            subscribeBtn.className = 'subscribe-btn';
-            subscribeBtn.textContent = item.subscribeText;
-
-            content.appendChild(title);
-            content.appendChild(subscribeBtn);
-            frame.appendChild(img);
-            frame.appendChild(content);
-            container.appendChild(frame);
-        });
-    };
-    
-    // Show the install message 15 seconds after the page loads
-window.onload = function() {
-    setTimeout(function() {
-        const installMessage = document.getElementById('install-message');
-        const closeButton = document.getElementById('close-btn');
-
-        // Display the message
-        installMessage.style.display = 'flex';
-
-        // Close the message when the close button is clicked
-        closeButton.onclick = function() {
-            installMessage.style.display = 'none';
-        };
-    }, 40000); // 40000 milliseconds = 30 seconds
-};
-
-    const openVideoNav = (videoId) => {
-        const videoUrl = `https://youtube.com/embed/${videoId}`;
-        document.getElementById('video-nav').style.display = 'block';
-        document.getElementById('video-player').src = videoUrl;
-    };
-
-    const closeNav = () => {
-        document.getElementById('video-nav').style.display = 'none';
-        document.getElementById('video-player').src = '';
-    };
-
-    const handleSearch = () => {
-        const searchTerm = document.getElementById('search-bar').value.toLowerCase();
-        const filteredData = data.filter(item => item.title.toLowerCase().includes(searchTerm));
-        createFrames(filteredData);
-    };
-
-    const filterByTag = (tag) => {
-        const filteredData = data.filter(item => item.tag === tag);
-        createFrames(filteredData);
-    };
-    
-    const navItems = document.querySelectorAll('.nav-item');
-
-navItems.forEach((item) => {
-    item.addEventListener('click', () => {
-        navItems.forEach((nav) => nav.classList.remove('active'));
-        item.classList.add('active');
-    });
-});
-
-let lastScrollTop = 0; // Store the last scroll position
-const bottomNav = document.getElementById("bottom-nav");
-
-window.addEventListener("scroll", function () {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-    if (scrollTop > lastScrollTop) {
-        // Scrolling down
-        bottomNav.style.transform = "translateY(100%)"; // Hide the bottom nav
-    } else {
-        // Scrolling up
-        bottomNav.style.transform = "translateY(0)"; // Show the bottom nav
-    }
-
-    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Update the last scroll position
-});
-    
-    // Shuffle the data array
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return 
-    rray;
-}
-
-    
-    // Shuffle the data array
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-}
-
-// Shuffle videos on load
-const shuffledData = shuffleArray(data);
-console.log(shuffledData); // You can use this data to dynamically populate the page
-
-    createFrames();
 </script>
-
 </body>
+<script type='text/javascript' src='//pl25431103.profitablecpmrate.com/b8/d6/d8/b8d6d8b390bce762a2078b7957a71c0e.js'></script>
 </html>
