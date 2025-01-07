@@ -64,11 +64,16 @@
             cursor: pointer;
             border: 1px solid #ddd;
         }
+        .tags .tag:hover {
+    background-color: #ff0000;
+    color: white;
+    border-color: #ccc;
+}
         #frames-container {
             margin-top: 120px;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 4px;
+            gap: 5px;
             padding: 7px;
         }
         .frame {
@@ -88,14 +93,14 @@
             padding: 5px;
         }
         .frame .content h2 {
-            font-size: 6px;
+            font-size: 8px;
             margin: 0 0 3px;
             color: #333;
         }
         .subscribe-btn {
             display: inline-block;
             margin-top: 2px;
-            padding: 1px 40px;
+            padding: 2px 15px;
             background-color: #f0f0f0;
             color: black;
             border: 1px solid #ccc;
@@ -244,16 +249,19 @@
 <header>
     <div class="header-top">
         <div class="logo">i Tube</div>
-        <input type="text" id="search-bar" placeholder="Search iTube..." oninput="handleSearch()" />
+        <input type="text" id="search-bar" placeholder="Search i Tube..." oninput="handleSearch()" />
     </div>
     <div class="tags">
+        <div class="tag" onclick="filterByTag('Action')">Action</div>
         <div class="tag" onclick="filterByTag('Monster')">Monster</div>
         <div class="tag" onclick="filterByTag('Horror')">Horror</div>
         <div class="tag" onclick="filterByTag('Battles')">Battles</div>
         <div class="tag" onclick="filterByTag('Sharks')">Sharks</div>
+        <div class="tag" onclick="filterByTag('Dragon')">Dragon</div>
+        <div class="tag" onclick="filterByTag('Action')">Action</div>
+        <div class="tag" onclick="filterByTag('Chinese')">Chinese</div>
         <div class="tag" onclick="filterByTag('Hindi')">Hindi</div>
-        <div class="tag" onclick="filterByTag('Japan')">Japan</div>
-        <div class="tag" onclick="filterByTag('Australia')">Australia</div>
+        <div class="tag" onclick="filterByTag('Drama')">Drama</div>
     </div>        
 </header>
 
@@ -406,6 +414,118 @@
             videoId: "CumW3IY1mMg",
             title: "GOD OF WAR - FULL ACTION",
             tag: "Battles",
+            subscribeUrl: "https://i-tube3.netlify.app/",
+            subscribeText: "🗨️ Comments",
+        },
+        {
+            videoId: "5nxOTg0fXMc",
+            title: "JABBERWOCK DRAGON - FULL ACTION",
+            tag: "Dragon",
+            subscribeUrl: "https://i-tube3.netlify.app/",
+            subscribeText: "🗨️ Comments",
+        },
+        {
+            videoId: "V_ZZqYSCHXs",
+            title: "TIGER HUNTER - FULL ACTION",
+            tag: "Chinese",
+            subscribeUrl: "https://i-tube3.netlify.app/",
+            subscribeText: "🗨️ Comments",
+        },
+        {
+            videoId: "DAY_-IjpvTc",
+            title: "KUNLUN LABYRINTH - FULL ACTION",
+            tag: "Monster",
+            subscribeUrl: "https://i-tube3.netlify.app/",
+            subscribeText: "🗨️ Comments",
+        },
+        {
+            videoId: "BHPaUT2hSKU",
+            title: "SUNFALL - FULL ACTION",
+            tag: "Action",
+            subscribeUrl: "https://i-tube3.netlify.app/",
+            subscribeText: "🗨️ Comments",
+        },
+        {
+            videoId: "9QB2GjHg0Tw",
+            title: "FLIGHT FROM HELL - FULL ACTION",
+            tag: "Action",
+            subscribeUrl: "https://i-tube3.netlify.app/",
+            subscribeText: "🗨️ Comments",
+        },
+        {
+            videoId: "HK2Q8CeTJTc",
+            title: "THRILL OF THE KILL - FULL ACTION",
+            tag: "Action",
+            subscribeUrl: "https://i-tube3.netlify.app/",
+            subscribeText: "🗨️ Comments",
+        },
+        {
+            videoId: "88Xjes9lppY",
+            title: "BULL SHARK - FULL ACTION",
+            tag: "Sharks",
+            subscribeUrl: "https://i-tube3.netlify.app/",
+            subscribeText: "🗨️ Comments",
+        },
+        {
+            videoId: "4Z9xQDqX9e0",
+            title: "VAMPYRE NATION - FULL ACTION",
+            tag: "Action",
+            subscribeUrl: "https://i-tube3.netlify.app/",
+            subscribeText: "🗨️ Comments",
+        },
+        {
+            videoId: "xtd4VSowu6I",
+            title: "AMBER ALERT - FULL ACTION",
+            tag: "Action",
+            subscribeUrl: "https://i-tube3.netlify.app/",
+            subscribeText: "🗨️ Comments",
+        },
+        {
+            videoId: "WuGAw0cYHL4",
+            title: "LIGHTNING STRIKES - FULL ACTION",
+            tag: "Action",
+            subscribeUrl: "https://i-tube3.netlify.app/",
+            subscribeText: "🗨️ Comments",
+        },
+        {
+            videoId: "esKGH-ThwYg",
+            title: "FLIRTING WITH DANGER - FULL ACTION",
+            tag: "Action",
+            subscribeUrl: "https://i-tube3.netlify.app/",
+            subscribeText: "🗨️ Comments",
+        },
+        {
+            videoId: "QEdJmkXQ7k4",
+            title: "THE ANDY BAKER TAPE - FULL ACTION",
+            tag: "Action",
+            subscribeUrl: "https://i-tube3.netlify.app/",
+            subscribeText: "🗨️ Comments",
+        },
+        {
+            videoId: "V7nfc3mZKWY",
+            title: "TEXAS TWISTER - FULL ACTION",
+            tag: "Action",
+            subscribeUrl: "https://i-tube3.netlify.app/",
+            subscribeText: "🗨️ Comments",
+        },
+        {
+            videoId: "FNc4ArnSRiI",
+            title: "MONSTER GRIZZLY - FULL ACTION",
+            tag: "Monster",
+            subscribeUrl: "https://i-tube3.netlify.app/",
+            subscribeText: "🗨️ Comments",
+        },
+        {
+            videoId: "t9EmWFU2Xro",
+            title: "INVASION ROSWELL - FULL ACTION",
+            tag: "Action",
+            subscribeUrl: "https://i-tube3.netlify.app/",
+            subscribeText: "🗨️ Comments",
+        },
+        {
+            videoId: "t2tTknlT_To",
+            title: "BURDEN OF EVIL - FULL ACTION",
+            tag: "Action",
             subscribeUrl: "https://i-tube3.netlify.app/",
             subscribeText: "🗨️ Comments",
         },
